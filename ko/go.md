@@ -1,25 +1,25 @@
-# About This Book
+# 이 책에 대하여
 
-## License
+## 라이센스
 
-The Little Go Book is licensed under the Attribution-NonCommercial-ShareAlike 4.0 International license. You should not have paid for this book.
+Little Go Book은 Attribution-NonCommercial-ShareAlike 4.0 International license를 따릅니다. 이 책에 값을 지불하지 마세요.
 
-You are free to copy, distribute, modify or display the book. However, I ask that you always attribute the book to me, Karl Seguin, and do not use it for commercial purposes.
+이 책은 복제, 배포, 게시를 자유롭게 할 수 있습니다. 다만, 이 책은 Karl Seguin에게 소유권이 있다는 사실을 당부 드립니다. 상업적 용도로 사용하지 마세요.
 
-You can see the full text of the license at:
+라이센스에 대한 전문은 여기서 볼 수 있습니다:
 
 <https://creativecommons.org/licenses/by-nc-sa/4.0/>
 
-## Latest Version
+## 최신 버전
 
-The latest source of this book is available at:
+이 책의 최신 버전은 여기서 제공됩니다:
 <https://github.com/karlseguin/the-little-go-book>
 
-# Introduction
+# 소개
 
-I've always had a love-hate relationship when it comes to learning new languages. On the one hand, languages are so fundamental to what we do, that even small changes can have measurable impact. That *aha* moment when something clicks can have a lasting effect on how you program and can redefine your expectations of other languages. On the downside, language design is fairly incremental. Learning new keywords, type system, coding style as well as new libraries, communities and paradigms is a lot of work that seems hard to justify. Compared to everything else we have to learn, new languages often feel like a poor investment of our time.
+저는 새로운 언어를 배우는 데 있어 항상 애증의 관계를 유지 했습니다. 한편으로는 언어는 우리가 하는 일에 너무도 근본적이기 때문에 언어의 작은 변화로도 괄목할만한 영향을 미칩니다. 무언가를 클릭할 때 *아하*하는 순간은 당신이 프로그래밍 하는 방법에 대해 지속적으로 영향을 미칠 수 있고 다른 프로그래밍 언어에 대한 기대치를 재정의 할 수도 있습니다. 단점이라면 언어 디자인은 상당히 점진적입니다. 새로운 키워드, 타입 시스템, 코딩 스타일을 배우는 것은 새로운 라이브러리나 커뮤니티, 패러다임을 배우는 것 만큼 정당화 하기 어렵다는 것입니다. 배워야 할 다른 것들과 비교해 보면 새로운 언어를 배운다는 것은 종종 우리 시간을 투자할 가치가 없다고 느껴지기도 합니다.
 
-That said, we *have* to move forward. We *have* to be willing to take incremental steps because, again, languages are the foundation of what we do. Though the changes are often incremental, they tend to have a wide scope and they impact productivity, readability, performance, testability, dependency management, error handling, documentation, profiling, communities, standard libraries, and so on. Is there a positive way to say *death by a thousand cuts*?
+그렇지만, 우리는 앞으로 전진*해야* 합니다. 다시 말하지만 언어는 우리가 하는 일에 너무도 근본적인 역할을 하므로 우리는 점진적인 단계를 감수할 의지가 있*어야만* 합니다. 변화는 점진적이지만 광범위하며 생상성, 가독성, 성능, 테스트 가능성, 종속성 관리, 에러 처리, 문서화, 프로파일링, 커뮤니티, 표준 라이브러리 등에 영향을 미칩니다. 천개의 상처로 죽음을 말할 수 있는 긍정적인 방법이 있나요?
 
 That leaves us with an important question: **why Go?** For me, there are two compelling reasons. The first is that it's a relatively simple language with a relatively simple standard library. In a lot of ways, the incremental nature of Go is to simplify some of the complexity we've seen being added to languages over the last couple of decades. The other reason is that for many developers, it will complement your existing arsenal.
 
