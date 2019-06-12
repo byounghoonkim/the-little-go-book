@@ -31,11 +31,12 @@ Go는 탁월한 분야가 있습니다. 예를 들면, 컴파일 된 Go 프로�
 
 Go를 배우는 것은 시간을 효율적으로 사용하는 것임이 분명합니다. Go를 배우거나 마스터링 하는데 오랜 시간을 들일 필요가 없으며, 노력을 통해 실용적인 것을 얻을 수 있을 겁니다.
 
-## A Note from the Author
+## 저자 노트
 
-I've hesitated writing this book for a couple reasons. The first is that Go's own documentation, in particular [Effective Go](https://golang.org/doc/effective_go.html), is solid.
+몇 가지 이유로 이 책을 쓰는 것을 주저했습니다. 첫 번째 이유는 Go의 문서, 특히
+[Effective Go](https://golang.org/doc/effective_go.html)때문입니다. 그 문서는 아주 견실합니다.
 
-The other is my discomfort at writing a book about a language. When I wrote The Little MongoDB Book, it was safe to assume most readers understood the basics of relational database and modeling. With The Little Redis Book, you could assume a familiarity with a key value store and take it from there.
+다른 이유는 언어에 대한 책을 쓰는 것은 쉽지 않기 때문입니다. Little MongoDB Book을 썼을 때 대부분의 독자들이 관계형 데이터베이스의 기초와 모델링에 대해 이해하고 있다고 가정해도 됐습니다. Little Redis Book을 쓸 때는 키 값 저장소를 사용하는데 익숙하다고 가정했었습니다.
 
 As I think about the paragraphs and chapters that lay ahead, I know that I won't be able to make those same assumptions. How much time do you spend talking about interfaces knowing that for some, the concept will be new, while others won't need much more than *Go has interfaces*? Ultimately, I take comfort in knowing that you'll let me know if some parts are too shallow or others too detailed. Consider that the price of this book.
 
