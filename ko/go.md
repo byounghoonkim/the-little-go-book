@@ -33,43 +33,47 @@ Go를 배우는 것은 시간을 효율적으로 사용하는 것임이 분명�
 
 ## 저자 노트
 
-몇 가지 이유로 이 책을 쓰는 것을 주저했습니다. 첫 번째 이유는 Go의 문서, 특히
+몇 가지 이유로 이 책 쓰는 것을 주저했습니다. 첫 번째 이유는 Go의 문서, 특히
 [Effective Go](https://golang.org/doc/effective_go.html)때문입니다. 그 문서는 아주 견실합니다.
 
 다른 이유는 언어에 대한 책을 쓰는 것은 쉽지 않기 때문입니다. Little MongoDB Book을 썼을 때 대부분의 독자들이 관계형 데이터베이스의 기초와 모델링에 대해 이해하고 있다고 가정해도 됐습니다. Little Redis Book을 쓸 때는 키 값 저장소를 사용하는데 익숙하다고 가정했었습니다.
 
-As I think about the paragraphs and chapters that lay ahead, I know that I won't be able to make those same assumptions. How much time do you spend talking about interfaces knowing that for some, the concept will be new, while others won't need much more than *Go has interfaces*? Ultimately, I take comfort in knowing that you'll let me know if some parts are too shallow or others too detailed. Consider that the price of this book.
+앞서 제시한 단락과 장을 생각해 보면, 그와 같은 가정을 할 수 없다는 것을 알게 된다. 일부는 새로운 개념, 다른 것은 Go가 인터페이스를 가지고 있다는 사실 보다 더 많이는 필요 없다는 정도까지 인터페이스에 대해 이야기 하는데 얼마의 시간이 걸릴까요? 궁극적으로 어떤 부분은 내용이 너무 얕고 어떻부분은 너무 자세한지를 독자가 알려줄 것으로 생각합니다. 이 책의 가격을 생각해 보세요.
 
-# Getting Started
+# 시작
 
-If you're looking to play a little with Go, you should check out the [Go Playground](https://play.golang.org/) which lets you run code online without having to install anything. This is also the most common way to share Go code when seeking help in [Go's discussion forum](https://groups.google.com/forum/#!forum/golang-nuts) and places like StackOverflow.
+Go를 조금만 가지고 놀아볼 생각이라면 아무것도 설치 하지 않고 코드를 온라인상에서 실행해 볼 수 있는 [Go Playground](https://play.golang.org/)를 이용합니다. 스택오버플로우나 [Go's discussion forum](https://groups.google.com/forum/#!forum/golang-nuts) 같은 곳에서 도움을 구할 때 코드를 공유 하기 위해서도 이 방법을 사용할 수 있습니다.
 
 Installing Go is straightforward. You can install it from source, but I suggest you use one of the pre-compiled binaries. When you [go to the download page](https://golang.org/dl/), you'll see installers for various platforms. Let's avoid these and learn how to set up Go ourselves. As you'll see, it isn't hard.
+Go 설치는 간단합니다. 소스를 통해 설치할 수도 있지만 사전에 컴파일된 바이너리를 사용하는 것을 권장합니다. [다운로드 페이지](https://golang.org/dl/)로 가면 다양한 설치본을 확인할 수 있습니다. 설치 하는 방법은 각자 배우길 바랍니다. 보다 시피 어렵지 않습니다.
 
-Except for simple examples, Go is designed to work when your code is inside a workspace. The workspace is a folder composed of `bin`, `pkg` and `src` subfolders. You might be tempted to force Go to follow your own style - don't.
+간단한 예제를 제외하고 Go는 작업 공간(Workspace) 안에 코드가 있을 때 동작하도록 설계되었습니다. 작업 공간은 `bin`, `pkg`, `src` 서브 폴더를 가지는 폴더 입니다. Go가 독자의 스타일을 따르도록 하고 싶을테지만 그러지 마세요.
 
-Normally, I put my projects inside of `~/code`. For example, `~/code/blog` contains my blog. For Go, my workspace is `~/code/go` and my Go-powered blog would be in `~/code/go/src/blog`.
+보통 저는 제 프로젝트를 `~/code`에 둡니다. 예를 들면 `~/code/blog`는 블로그 입니다. Go의 경우 제 작업 공간은 `~/code/go`이고 Go를 사용하는 블로그는 `~/code/go/src/blog` 가 될 것입니다.
 
 In short, create a `go` folder with a `src` subfolder wherever you expect to put your projects.
+간단히 말하면, 프로젝트 폴더를 두려고 한다면 `src` 하위 폴더를 가지는 `go` 폴더를 만드세요.
 
 ## OSX / Linux
 Download the `tar.gz` for your platform. For OSX, you'll most likely be interested in `go#.#.#.darwin-amd64-osx10.8.tar.gz`, where `#.#.#` is the latest version of Go.
+플랫폼에 맞는 `tar.gz` 파일을 다운로드 받으세요. OSX의 경우는 `#.#.#` 부분에 Go의 최신 버전인 `go#.#.#.darwin-amd64-osx10.8.tar.gz` 와 같을 것입니다. 
 
-Extract the file to `/usr/local` via `tar -C /usr/local -xzf go#.#.#.darwin-amd64-osx10.8.tar.gz`.
+파일을 `tar -C /usr/local -xzf go#.#.#.darwin-amd64-osx10.8.tar.gz` 명령을 통해 `/usr/local` 에 압축 해제 하세요.
 
-Set up two environment variables:
+두 환경 변수를 설정하세요:
 
-  1. `GOPATH` points to your workspace, for me, that's `$HOME/code/go`.
-  2. We need to append Go's binary to our `PATH`.
+  1. `GOPATH` 가 작업 영영을 가리키도록 설정, 필자의 경우는 `$HOME/code/go`.
+  2. Go 바이너리 경로를 `PATH`에 추가.
 
-You can set these up from a shell:
+쉘을 통해서 이 두 환경 변수를 설정할 수도 있습니다:
 
     echo 'export GOPATH=$HOME/code/go' >> $HOME/.profile
     echo 'export PATH=$PATH:/usr/local/go/bin' >> $HOME/.profile
 
-You'll want to activate these variables. You can close and reopen your shell, or you can run `source $HOME/.profile`.
+이 환경 변수를 활성화 하려면 쉘을 닫았다가 다시 열거나 `source $HOME/.profile`와 같이 실행합니다.
 
 Type `go version` and you'll hopefully get an output that looks like `go version go1.3.3 darwin/amd64`.
+`go version` 명령을 입력하면 `go version go1.3.3 darwin/amd64` 와 유사항 결과를 확인할 수 있을 겁니다.
 
 ## Windows
 Download the latest zip file. If you're on an x64 system, you'll want `go#.#.#.windows-amd64.zip`, where `#.#.#` is the latest version of Go.
