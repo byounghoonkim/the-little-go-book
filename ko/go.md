@@ -21,15 +21,15 @@ Little Go Book은 Attribution-NonCommercial-ShareAlike 4.0 International license
 
 그렇지만, 우리는 앞으로 전진*해야* 합니다. 다시 말하지만 언어는 우리가 하는 일에 너무도 근본적인 역할을 하므로 우리는 점진적인 단계를 감수할 의지가 있*어야만* 합니다. 변화는 점진적이지만 광범위하며 생상성, 가독성, 성능, 테스트 가능성, 종속성 관리, 에러 처리, 문서화, 프로파일링, 커뮤니티, 표준 라이브러리 등에 영향을 미칩니다. 천개의 상처로 죽음을 말할 수 있는 긍정적인 방법이 있나요?
 
-That leaves us with an important question: **why Go?** For me, there are two compelling reasons. The first is that it's a relatively simple language with a relatively simple standard library. In a lot of ways, the incremental nature of Go is to simplify some of the complexity we've seen being added to languages over the last couple of decades. The other reason is that for many developers, it will complement your existing arsenal.
+중요한 의문이 남습니다: **왜 Go 언어인가?** 저의 경우 두 가지 동기가 있습니다. 첫째는 Go언어는 비교적 심플한 표준 라이브러리를 가지는 단순한 언어라는 것입니다. Go 언어의 점직전 특성은 많은 점에서 지난 수십 년 간 각종 언어에 추가되어온 복잡성을 단순화했다는 것입니다. 또 다른 동기는 많은 개발자들에게 기존에 도구 집합(arsenal)을 보완한다는 이유 입니다.
 
-Go was built as a system language (e.g., operating systems, device drivers) and thus aimed at C and C++ developers. According to the Go team, and which is certainly true of me, application developers, not system developers, have become the primary Go users. Why? I can't speak authoritatively for system developers, but for those of us building websites, services, desktop applications and the like, it partially comes down to the emerging need for a class of systems that sit somewhere in between low-level system applications and higher-level applications.
+Go는 원래 시스템(예를 들면 운영체제, 장비 드라이버)을 위한 언어로 만들어 졌었고 C, C++ 개발자들을 대상으로 했었습니다. 그런데 Go 팀에 따르면 시스템 개발자가 아니라 애플리케이션 개발자가 Go의 주 사용자가 되었다고 합니다. 저의 경우에도 그렇습니다. 왜냐하면 저는 시스템 개발자로서가 아니라 웹사이트, 서비스, 데스크톱 애플리케이션을 개발자로서 Go가 저수준과 고수준 시스템 애플리케이션 사이에 위치한 시스템 클래스를 위해 필요한 것으로 부각되고 있다고 말씀 드릴 수 있습니다.
 
-Maybe it's a messaging, caching, computational-heavy data analysis, command line interface, logging or monitoring. I don't know what label to give it, but over the course of my career, as systems continue to grow in complexity and as concurrency frequently measures in the tens of thousands, there's clearly been a growing need for custom infrastructure-type systems. You *can* build such systems with Ruby or Python or something else (and many people do), but these types of systems can benefit from a more rigid type system and greater performance. Similarly, you *can* use Go to build websites (and many people do), but I still prefer, by a wide margin, the expressiveness of Node or Ruby for such systems.
+아마도 그런 필요성은 메시징, 캐싱, 계산량이 많은 데이터 분석, 명령줄 인터페이스, 로깅이나 모니터링 등의 작업일 수 있습니다. 어떤 레이블로 분류해야 할지 모르겠지만, 제 경력이 쌓여갈 수록 복잡성이 지속적으로 증가하는 하고 수만 준의 동시성을 지원하는 사용자 정의 인프라 타입의 시스템에 대한 필요성이 확실하게 커지고 있습니다. 이런 시스템들 루비나 파이썬 또는 다른 것들(많은 이들이 그렇게 하듯이)로 구축*할 수는* 있지만 (Go로 구축한다면)이런 유형의 시스템들은 강 타입 시스템과 성능 부분에서 잇점을 얻을 수 있습니다. 마찬가지로 (많은 이들이 그러는 것처럼) 웹사이트를 구축하는데 Go를 사용할 수도 있습니다만 많은 이들이 그런 시스템을 위해서는 루비나 노드의 표현력을 더 선호합니다.
 
-There are other areas where Go excels. For example, there are no dependencies when running a compiled Go program. You don't have to worry if your users have Ruby or the JVM installed, and if so, what version. For this reason, Go is becoming increasingly popular as a language for command-line interface programs and other types of utility programs you need to distribute (e.g., a log collector).
+Go는 탁월한 분야가 있습니다. 예를 들면, 컴파일 된 Go 프로그램은 동작 시 종속성을 가지지 않습니다. 사용자가 루비나 JVM을 설치했는지 설치했다면 어떤 버전인지 등을 걱정할 필요가 없습니다. 이런 이유로 Go는 명령줄 인터페이스 프로그램과 배포해야 하는 유틸리티 프로그램 타입(예를 들면, 로그 수집기)을 위한 언어로 점차 대중화 되고 있습니다.
 
-Put plainly, learning Go is an efficient use of your time. You won't have to spend long hours learning or even mastering Go, and you'll end up with something practical from your effort.
+Go를 배우는 것은 시간을 효율적으로 사용하는 것임이 분명합니다. Go를 배우거나 마스터링 하는데 오랜 시간을 들일 필요가 없으며, 노력을 통해 실용적인 것을 얻을 수 있을 겁니다.
 
 ## A Note from the Author
 
