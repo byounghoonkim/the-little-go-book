@@ -70,7 +70,7 @@ Go 설치는 간단합니다. 소스를 통해 설치할 수도 있지만 사전
 
 이 환경 변수를 활성화 하려면 쉘을 닫았다가 다시 열거나 `source $HOME/.profile`와 같이 실행합니다.
 
-`go version` 명령을 입력하면 `go version go1.3.3 darwin/amd64` 와 유사항 결과를 확인할 수 있을 겁니다.
+`go version` 명령을 입력하면 `go version go1.3.3 darwin/amd64`와 유사항 결과를 확인할 수 있을 겁니다.
 
 ## Windows
 최신 zip파일을 다운로드 받으세요. x64 시스템이라면, `#.#.#` 부분에 최신 Go 버전이 표시된 `go#.#.#.windows-amd64.zip`와 같은 파일입니다.
@@ -79,13 +79,14 @@ Go 설치는 간단합니다. 소스를 통해 설치할 수도 있지만 사전
 
 환경 변수 두개를 설정합니다:
 
-  1. `GOPATH` points to your workspace. That might be something like `c:\users\goku\work\go`.
-  1.
-  2. Add `c:\Go\bin` to your `PATH` environment variable.
+  1. `GOPATH` 는 작업 영역을 가리키도록 설정. `c:\users\goku\work\go`와 같은 경로
+  2. `c:\Go\bin` 경로를 `PATH` 환경 변수에 추가
 
-Environment variables can be set through the `Environment Variables` button on the `Advanced` tab of the `System` control panel. Some versions of Windows provide this control panel through the `Advanced System Settings` option inside the `System` control panel.
+환경 변수는 환경설정 패널의 시스템에 고급 탭에서 환경 변수 버튼을 통해 수정 가능합니다. 특정 윈도우 버전의 경우는 이 설정 패널이 시스템 설정 내에 고급 시스템 설정이라는 옵션을 통해 환경 변수 변경을 제공합니다.
 
-Open a command prompt and type `go version`. You'll hopefully get an output that looks like `go version go1.3.3 windows/amd64`.
+명령창을 열고 `go version`을 입력하세요. `go version go1.3.3 darwin/amd64`와 유사항 결과를 확인할 수 있을 겁니다.
+
+
 
 # Chapter 1 - The Basics
 
