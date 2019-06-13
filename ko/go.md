@@ -51,12 +51,10 @@ Go 설치는 간단합니다. 소스를 통해 설치할 수도 있지만 사전
 
 보통 저는 제 프로젝트를 `~/code`에 둡니다. 예를 들면 `~/code/blog`는 블로그 입니다. Go의 경우 제 작업 공간은 `~/code/go`이고 Go를 사용하는 블로그는 `~/code/go/src/blog` 가 될 것입니다.
 
-In short, create a `go` folder with a `src` subfolder wherever you expect to put your projects.
 간단히 말하면, 프로젝트 폴더를 두려고 한다면 `src` 하위 폴더를 가지는 `go` 폴더를 만드세요.
 
 ## OSX / Linux
-Download the `tar.gz` for your platform. For OSX, you'll most likely be interested in `go#.#.#.darwin-amd64-osx10.8.tar.gz`, where `#.#.#` is the latest version of Go.
-플랫폼에 맞는 `tar.gz` 파일을 다운로드 받으세요. OSX의 경우는 `#.#.#` 부분에 Go의 최신 버전인 `go#.#.#.darwin-amd64-osx10.8.tar.gz` 와 같을 것입니다. 
+플랫폼에 맞는 `tar.gz` 파일을 다운로드 받으세요. OSX의 경우는 `#.#.#` 부분에 Go의 최신 버전인 `go#.#.#.darwin-amd64-osx10.8.tar.gz` 와 같을 것입니다.
 
 파일을 `tar -C /usr/local -xzf go#.#.#.darwin-amd64-osx10.8.tar.gz` 명령을 통해 `/usr/local` 에 압축 해제 하세요.
 
@@ -72,15 +70,14 @@ Download the `tar.gz` for your platform. For OSX, you'll most likely be interest
 
 이 환경 변수를 활성화 하려면 쉘을 닫았다가 다시 열거나 `source $HOME/.profile`와 같이 실행합니다.
 
-Type `go version` and you'll hopefully get an output that looks like `go version go1.3.3 darwin/amd64`.
 `go version` 명령을 입력하면 `go version go1.3.3 darwin/amd64` 와 유사항 결과를 확인할 수 있을 겁니다.
 
 ## Windows
-Download the latest zip file. If you're on an x64 system, you'll want `go#.#.#.windows-amd64.zip`, where `#.#.#` is the latest version of Go.
+최신 zip파일을 다운로드 받으세요. x64 시스템이라면, `#.#.#` 부분에 최신 Go 버전이 표시된 `go#.#.#.windows-amd64.zip`와 같은 파일입니다.
 
-Unzip it at a location of your choosing. `c:\Go` is a good choice.
+적당한 위치를 선택해 파일을 압축해제 합니다. `c:\Go` 정도가 적당합니다.
 
-Set up two environment variables:
+환경 변수 두개를 설정합니다:
 
   1. `GOPATH` points to your workspace. That might be something like `c:\users\goku\work\go`.
   2. Add `c:\Go\bin` to your `PATH` environment variable.
