@@ -88,19 +88,20 @@ Go 설치는 간단합니다. 소스를 통해 설치할 수도 있지만 사전
 
 
 
-# Chapter 1 - The Basics
+# 1장 - 기초
 
-Go is a compiled, statically typed language with a C-like syntax and garbage collection. What does that mean?
+Go는 C 문법과 유사하며 가비지 수집 기능이 있는 컴파일되는 정적 타입 언어입니다. 이게 무슨 뜻일까요?
 
-## Compilation
+## 컴파일
 
-Compilation is the process of translating the source code that you write into a lower level language -- either assembly (as is the case with Go), or some other intermediary language (as with Java and C#).
+컴파일이란 당신이 작성한 소스 코드에서 저수준 언어로 변환하는 과정을 말합니다. 저수준 언어란 어셈블리(Go의 경우)나 기타 중간 단계 언어(Java, C# 등의 경우)를 뜻합니다.
 
-Compiled languages can be unpleasant to work with because compilation can be slow. It's hard to iterate quickly if you have to spend minutes or hours waiting for code to compile. Compilation speed is one of the major design goals of Go. This is good news for people working on large projects as well as those of us used to a quick feedback cycle offered by interpreted languages.
+컴파일 되는 시간이 오래 걸리 수도 있기 때문에 컴파일되는 언어로 작업하는 것은 즐겁지 않습니다. 컴파일되기를 몇 분 또는 몇 시간 기다려야 한다면 개발 주기를 빠르게 반복하기 어렵습니다. 컴파일 속도는 Go의 주요 디자인 목표 중 하나 입니다. 인터프리터 언어를 사용해 빠른 피드백 주기를 사용하는 대형 프로젝트를 개발하는 사람에게는 희소식입니다.
 
-Compiled languages tend to run faster and the executable can be run without additional dependencies (at least, that's true for languages like C, C++ and Go which compile directly to assembly).
+컴파일되는 언어는 비교적 더 빨리 실행되고 그 실행 파일은 추가적인 종속성이 없이 동작할 수 있습니다.(적어도 C, C++, Go 처럼 직접 어셈플리어로 컴파일되는 언어의 경우에는)
 
-## Static Typing
+
+## 정적 타이핑
 
 Being statically typed means that variables must be of a specific type (int, string, bool, []byte, etc.). This is either achieved by specifying the type when the variable is declared or, in many cases, letting the compiler infer the type (we'll look at examples shortly).
 
