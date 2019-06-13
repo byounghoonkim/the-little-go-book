@@ -80,6 +80,7 @@ Go 설치는 간단합니다. 소스를 통해 설치할 수도 있지만 사전
 환경 변수 두개를 설정합니다:
 
   1. `GOPATH` points to your workspace. That might be something like `c:\users\goku\work\go`.
+  1.
   2. Add `c:\Go\bin` to your `PATH` environment variable.
 
 Environment variables can be set through the `Environment Variables` button on the `Advanced` tab of the `System` control panel. Some versions of Windows provide this control panel through the `Advanced System Settings` option inside the `System` control panel.
