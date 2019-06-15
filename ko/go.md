@@ -159,7 +159,6 @@ go run main.go
 
 잘 작동된다면, *it's over 9000!* 라는 문구가 출력됩니다.
 
-But wait, what about the compilation step? `go run` is a handy command that compiles *and* runs your code. It uses a temporary directory to build the program, executes it and then cleans itself up. You can see the location of the temporary file by running:
 그런데 컴파일 단계는 어떻게 된거죠? `go run` 명령은 컴파일을 하고 코드를 실행하는 편리한 명령입니다. 이 명령은 임시 폴더에 프로그램을 빌드 하고 실행한 후 폴더를 정리합니다. 임시 파일의 위치를 보려면 아래와 같이 실행 하면 됩니다:
 
 ```
@@ -212,11 +211,13 @@ func main() {
 go run main.go 9000
 ```
 
-We're now using two of Go's standard packages: `fmt` and `os`. We've also introduced another built-in function `len`. `len` returns the size of a string, or the number of values in a dictionary, or, as we see here, the number of elements in an array. If you're wondering why we expect 2 arguments, it's because the first argument -- at index 0 -- is always the path of the currently running executable. (Change the program to print it out and see for yourself.)
+현재 Go의 표준 패키지 중 `fmt`와 `os` 2개를 사용하고 있습니다. 그리고 내장 함수인 `len`도 소개 했습니다. `len`은 문자열의 크기나 딕션너리 내에 값의 갯수 또는 코드에서 보듯이 배열에서 요소의 갯수를 반환합니다. 왜 인자 2개를 대하는지 궁금해 할 수도 있겠네요. 그것은 인덱스가 0인 첫 번째 인자는 항상 현재 동작 중인 실행 파일의 경로이기 때문입니다. (프로그램을 변경해서 직접 확인해 보세요.)
 
-You've probably noticed we prefix the function name with the package, e.g., `fmt.Println`. This is different from many other languages. We'll learn more about packages in later chapters. For now, knowing how to import and use a package is a good start.
+`fmt.Println`과 같이 패키지의 함수 이름 앞에 접두사가 붙는 것을 보셨을 겁니다. 이 부분은 다른 많은 언어들과 다릅니다. 패키지에 대한 내용은 이후 장에서 배우게 될 것입니다. 지금은 패키지를 어떻게 가져와서 사용하는지를 아는 것으로도 좋은 출발입니다.
 
-Go is strict about importing packages. It will not compile if you import a package but don't use it. Try to run the following:
+
+Go는 패키지를 임포트 하는 것에 엄격합니다. 만약 패키지를 임포트 하고 사용하지 않으면 컴파일 되지 않을 것입니다. 다음을 실행해 보세요:
+
 
 ```go
 package main
