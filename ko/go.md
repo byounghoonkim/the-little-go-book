@@ -244,13 +244,13 @@ godoc -http=:6060
 위와 같이 실행 한 후 브라우저로 `http://localhost:6060` 로 갑니다.
 
 
-## Variables and Declarations
+## 변수와 선언
 
-It'd be nice to begin and end our look at variables by saying *you declare and assign to a variable by doing x = 4.* Unfortunately, things are more complicated in Go. We'll begin our conversation by looking at simple examples. Then, in the next chapter, we'll expand this when we look at creating and using structures. Still, it'll probably take some time before you truly feel comfortable with it.
+변수를 선언하고 끝내려면 *x = 4 라고 변수를 선언하고 할당하라*고 말해주었으면 좋겠습니다. 불행하게도 Go 에서는 조금 더 복잡합니다. 간단한 예를 통해 이야기를 시작하겠습니다. 그리고 다음 장에서 구조체를 만들고 사용할 때 이 예제를 확장할 것입니다. 아직은 편안하게 느끼지기까지는 조금 시간이 걸릴 것입니다.
 
-You might be thinking *Woah! What can be so complicated about this?* Let's start looking at some examples.
+*무엇이 그렇게 복잡할까* 하고 생각할 수 있습니다. 몇 가지 예를 살펴 보겠습니다.
 
-The most explicit way to deal with variable declaration and assignment in Go is also the most verbose:
+Go에서 변수를 선언하고 할당하는 가장 명시적인 방법은 가장 장황하기도 합니다:
 
 ```go
 package main
@@ -267,18 +267,22 @@ func main() {
 ```
 
 Here, we declare a variable `power` of type `int`. By default, Go assigns a zero value to variables. Integers are assigned `0`, booleans `false`, strings `""` and so on. Next, we assign `9000` to our `power` variable. We can merge the first two lines:
+여기서 `int` 타입의 `power` 변수를 선언합니다. Go는 기본적으로 0 값을 변수에 할당합니다. 정수는 `0`, 불린은 `false`, 문자열은 `""` 등으로 할당 됩니다. 다음으로 `power` 변수에 `9000`을 할당합니다. 처음 두 줄을 병합할 수 있습니다:
 
 ```go
 var power int = 9000
 ```
 
 Still, that's a lot of typing. Go has a handy short variable declaration operator, `:=`, which can infer the type:
+여전히 많이 타이핑 해야 합니다. Go는 편리하고 짧은 변수 선언 연산자 `:= `를 가지고 있습니다. 이 연산자는 타입 추론을 할 수 있습니다:
 
 ```go
 power := 9000
 ```
 
 This is handy, and it works just as well with functions:
+이것은 편리하며 함수와도 동작합니다:
+
 
 ```go
 func main() {
