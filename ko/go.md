@@ -231,17 +231,18 @@ func main() {
 }
 ```
 
-You should get two errors about `fmt` and `os` being imported and not used. Can this get annoying? Absolutely. Over time, you'll get used to it (it'll still be annoying though). Go is strict about this because unused imports can slow compilation; admittedly a problem most of us don't have to this degree.
+`fmt`와 `os`를 임포트 하고 사용하지 않았다는 두 오류가 발생합니다. 성가실 수도 있을까요? 전혀요. 시간이 지만 익숙해 질 것입니다(그래도 여전히 성가십니다.) 사용하지 않은 임트 패키지는 컴파일을 느리게 할 수 있으므로 Go는 이 부분에 엄격합니다. 대부분은 이 정도까지는 문제가 없다고 인정합니다.
 
-Another thing to note is that Go's standard library is well documented. You can head over to <https://golang.org/pkg/fmt/#Println> to learn more about the `Println` function that we used. You can click on that section header and see the source code. Also, scroll to the top to learn more about Go's formatting capabilities.
+주말할 또 다른 사항은 Go의 표준 라이브러리는 문서화가 잘 되어 있다는 것입니다. 우리가 사용한 `Println` 함수에 대해 더 알아 보려면 <https://golang.org/pkg/fmt/#Println> 를 방문하면 됩니다. 그리고 Go의 서식 기능에 대해 알아 보려면 맨 위로 스크롤 하세요.
 
-If you're ever stuck without internet access, you can get the documentation running locally via:
+인터넷에 접속할 수 없다면 다음과 같이 로컬에서 실행 되는 문서를 볼 수 있습니다:
 
 ```
 godoc -http=:6060
 ```
 
-and pointing your browser to `http://localhost:6060`
+위와 같이 실행 한 후 브라우저로 `http://localhost:6060` 로 갑니다.
+
 
 ## Variables and Declarations
 
