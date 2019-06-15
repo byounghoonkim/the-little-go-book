@@ -103,15 +103,15 @@ Go는 C 문법과 유사하며 가비지 수집 기능이 있는 컴파일되는
 
 ## 정적 타이핑
 
-Being statically typed means that variables must be of a specific type (int, string, bool, []byte, etc.). This is either achieved by specifying the type when the variable is declared or, in many cases, letting the compiler infer the type (we'll look at examples shortly).
+정적 타입이라는 의미는 변수는 특정 타입이어야 한다는 의미입니다(int, string, bool, []byte 등등). 변수가 선언될 때 타입을 지정하거나 대부분은 컴파일러가 타입을 추측하도록 함으로써 정적 타입을 지정합니다(곧 예제를 보여드리겠습니다).
 
-There's a lot more that can be said about static typing, but I believe it's something better understood by looking at code. If you're used to dynamically typed languages, you might find this cumbersome. You're not wrong, but there are advantages, especially when you pair static typing with compilation. The two are often conflated. It's true that when you have one, you normally have the other but it isn't a hard rule. With a rigid type system, a compiler is able to detect problems beyond mere syntactical mistakes as well as make further optimizations.
+정적 타입에 대해 훨씬 많은 이야기가 있지만, 코드를 보며 이해 하는게 더 좋다고 생각합니다. 동적 타입 언어에 익숙하다면 좀 귀찮을 수도 있습니다. 당신이 틀리지는 않지만, 정적 타입은 장점이 있습니다. 특히, 정적 타입이 컴파일과 짝을 이룰 때가 그렇습니다. 이 두 가지는 종종 합쳐집니다. 하나를 가지면 보통 다른 하나를 가지게 되는게 사실입니다.(?) 엄격한 타입 시스템을 사용하면 컴파일러는 단순한 구분 실수 뿐만 아니라 추가적 최적화를 수행할 수 있습니다.
 
-## C-Like Syntax
+## C 유사 구문
 
-Saying that a language has a C-like syntax means that if you're used to any other C-like languages such as C, C++, Java, JavaScript and C#, then you're going to find Go familiar -- superficially, at least. For example, it means `&&` is used as a boolean AND, `==` is used to compare equality, `{` and `}` start and end a scope, and array indexes start at 0.
+C 유사 구문이 있다고 가정하고 C, C++, Java, Javascript 그리고 C#과 같은 다른 C 유사 구분 언어 사용에 익순하다면 Go에 친숙할 수 있을 것입니다 -- 적어도 겉으로 보기에는요. 예를 들면 `&&`는 논리합로 사용되고 `==`는 동등 비교에 사용되며, `{`와 `}`는 범위의 시작과 끝을 나타내며 배열 인텍스는 0으로 시작한다는 의미입니다.
 
-C-like syntax also tends to mean semi-colon terminated lines and parentheses around conditions. Go does away with both of these, though parentheses are still used to control precedence. For example, an `if` statement looks like this:
+C 유사 구문은 세미 콜론은 줄의 끝을 의미하며 조건문의 괄호로 나타내는 경향이 있습니다. Go는 우선 순위를 나타낼 때 괄호를 사용하지만 그 외에는 둘다 사용하지 않습니다. 예를 들면 `if` 구문은 다음과 같습니다:
 
 ```go
 if name == "Leto" {
@@ -119,7 +119,7 @@ if name == "Leto" {
 }
 ```
 
-And in more complicated cases, parentheses are still useful:
+좀더 복잡한 케이스로, 괄호를 사용하는 예입니다:
 
 ```go
 if (name == "Goku" && power > 9000) || (name == "gohan" && power < 4000)  {
@@ -127,17 +127,17 @@ if (name == "Goku" && power > 9000) || (name == "gohan" && power < 4000)  {
 }
 ```
 
-Beyond this, Go is much closer to C than C# or Java - not only in terms of syntax, but in terms of purpose. That's reflected in the terseness and simplicity of the language which will hopefully start to become obvious as you learn it.
+이 외에도 Go는 C#이나 Java보다 C에 훨씬 더 가깝습니다. 구문만이 아니라 목적면에서도 그렇습니다. 그것은 배워가면서 분명히 알게 될 언어의 단순함과 간결함으로 반영됩니다.
 
-## Garbage Collected
+## 가비지 수집
 
-Some variables, when created, have an easy-to-define life. A variable local to a function, for example, disappears when the function exits. In other cases, it isn't so obvious -- at least to a compiler. For example, the lifetime of a variable returned by a function or referenced by other variables and objects can be tricky to determine. Without garbage collection, it's up to developers to free the memory associated with such variables at a point where the developer knows the variable isn't needed. How? In C, you'd literally `free(str);` the variable.
+일부 변수는 생성될 때 변수는 쉽게 정의된 수명을 가집니다. 예를 들면 함수의 지역 변수는 함수가 종료될 때 사라집니다. 다른 경우는 적어도 컴파일러에게는 명확하지 않습니다. 예를 들면 함수에서 리턴 된 변수나 다른 객체에 의해 참조되는 변수의 수명을 결정하기는 까다로울 수 있습니다. 가비지 수집이 없다면 개발자가 더이상 변수가 필요 없다고 판단 되는 점에 그런 변수에 연관된 메모리를 해제 해야 합니다. 어떻게요? C에서는 문자 그대로 `free(str)` 로 해제 합니다.
 
-Languages with garbage collectors (e.g., Ruby, Python, Java, JavaScript, C#, Go) are able to keep track of these and free them when they're no longer used. Garbage collection adds overhead, but it also eliminates a number of devastating bugs.
+가비지 수집기를 사용하는 언어(예를 들면 Ruby, Python, Java, JavaScript, C#, Go)는 더이상 사용하지 않을 때 이를 추적하고 해제할 수 있습니다. 가비지 수집은 오버 헤드를 추가하지만, 많은 버그를 제거합니다.
 
-## Running Go Code
+## Go 코드 실행
 
-Let's start our journey by creating a simple program and learning how to compile and execute it. Open your favorite text editor and write the following code:
+간단한 프로그램을 하나 생성하고 어떻게 컴파일하고 실행하는지 배우면서 우리의 여행을 시작해 봅시다. 선호하는 편집기를 열고 다음 코드를 작성하세요:
 
 ```go
 package main
@@ -147,33 +147,34 @@ func main() {
 }
 ```
 
-Save the file as `main.go`. For now, you can save it anywhere you want; we don't need to live inside Go's workspace for trivial examples.
+`main.go`라는 파일로 저장하세요. 지금은 어디든 저장해도 됩니다. 사소한 예제를 위해서 Go 작업 공간을 사용할 필요는 없습니다.
 
-Next, open a shell/command prompt and change the directory to where you saved the file. For me, that means typing `cd ~/code`.
+다음으로 쉘(명령창)을 열고 파일을 저장한 디렉토리로 이동합니다. 제 경우엔 `cd ~/code` 입니다. 
 
-Finally, run the program by entering:
+마지막으로, 아래와 같이 입력해 프로그램을 실행합니다:
 
 ```
 go run main.go
 ```
 
-If everything worked, you should see *it's over 9000!*.
+잘 작동된다면, *it's over 9000!* 라는 문구가 출력됩니다.
 
 But wait, what about the compilation step? `go run` is a handy command that compiles *and* runs your code. It uses a temporary directory to build the program, executes it and then cleans itself up. You can see the location of the temporary file by running:
+그런데 컴파일 단계는 어떻게 된거죠? `go run` 명령은 컴파일을 하고 코드를 실행하는 편리한 명령입니다. 이 명령은 임시 폴더에 프로그램을 빌드 하고 실행한 후 폴더를 정리합니다. 임시 파일의 위치를 보려면 아래와 같이 실행 하면 됩니다:
 
 ```
 go run --work main.go
 ```
 
-To explicitly compile code, use `go build`:
+명시적으로 컴파일 하려면 `go build` 명령을 사용합니다:
 
 ```
 go build main.go
 ```
 
-This will generate an executable `main` which you can run. On Linux / OSX, don't forget that you need to prefix the executable with dot-slash, so you need to type `./main`.
+이 명령은 `main` 이라는 실행 파일을 생성할 것입니다. 리눅스나 OSX에서는 실행을 위해서는 점-슬래시를 앞에 붙여주어야 합니다. 그래서 `./main`이라고 입력해야 합니다. 
 
-While developing, you can use either `go run` or `go build`. When you deploy your code however, you'll want to deploy a binary via `go build` and execute that.
+개발하는 동안 `go run` 또는 `go build`를 사용할 수 있습니다. 그렇지만 코드를 배포할 때는 `go build`를 통해 생성한 바이너리를 배포하고 실행하게 될 것입니다.
 
 ### Main
 
