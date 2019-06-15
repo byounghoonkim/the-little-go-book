@@ -178,17 +178,17 @@ go build main.go
 
 ### Main
 
-Hopefully, the code that we just executed is understandable. We've created a function and printed out a string with the built-in `println` function. Did `go run` know what to execute because there was only a single choice? No. In Go, the entry point to a program has to be a function called `main` within a package `main`.
+방금 작성한 코드는 이해할만 합니다. 함수를 하나 생성 했고 `println` 내중 함수를 이용해 문자열을 출력 했습니다. `go run` 명령이 하나의 함수만 있어서 그것을 실행 했을까요? 아닙니다. Go에서는 프로그램의 진입점은 `main` 패키지 안의 `main` 이라는 이름의 함수여야 합니다.
 
-We'll talk more about packages in a later chapter. For now, while we focus on understanding the basics of Go, we'll always write our code within the `main` package.
+패키지에 대한 내용은 뒷장에서 좀더 다룹니다. 지금은 Go의 기초를 이해하는데 집중하기 위해 코드를 모두 `main` 패키지에 작성할 것입니다.
 
-If you want, you can alter the code and change the package name. Run the code via `go run` and you should get an error. Then, change the name back to `main` but use a different function name. You should see a different error message. Try making those same changes but use `go build` instead. Notice that the code compiles, there's just no entry point to run it. This is perfectly normal when you are, for example, building a library.
+원하면 코드를 변경하고 패키지 이름을 바꿀 수도 있습니다. `go run` 명령으로 코드를 실행하면 에러를 보게 될 겁니다. 그리고 패키지 이름을 다시 `main`으로 변경하고 함수 이름을 다른 것을 사용해 보세요. 그러면 다른 에러 메시지를 보게 될 겁니다. 동일한 변경을 `go build`로 시도해 보세요. 실행할 진입점이 없지만 코드가 컴파일 됩니다. 이런 경우는 예를 들면 라이브러리를 빌드하는 경우와 같이 완벽히 정상 상황입니다.
 
 ## Imports
 
-Go has a number of built-in functions, such as `println`, which can be used without reference. We can't get very far though, without making use of Go's standard library and eventually using third-party libraries. In Go, the `import` keyword is used to declare the packages that are used by the code in the file.
+Go에는 참조 없이 사용할 수 있는 `println` 과 같은 수 많은 내장 함수가 있습니다. Go의 표준 라이브러리나 서드파티 라이브러리를 사용하지 않고는 내장 함수와 멀어질 수 없습니다. Go에서 `import` 키워드는 파일의 코드에 패키지를 선언하는 데 사용됩니다.
 
-Let's change our program:
+프로그램을 변경해 봅시다:
 
 ```go
 package main
@@ -206,7 +206,7 @@ func main() {
 }
 ```
 
-Which you can run via:
+다음 같이 실행합니다:
 
 ```
 go run main.go 9000
