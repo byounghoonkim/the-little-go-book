@@ -445,17 +445,18 @@ goku.Power = 9000
 
 할당되지 않은 변수와 마찬가지로 0 값을 가질 것이므로 필드도 값을 가집니다.
 
-Furthermore, you can skip the field name and rely on the order of the field declarations (though for the sake of clarity, you should only do this for structures with few fields):
+또한 필드 이름을 건너 뛰고 필드 선언 순서에 의존할 수도 있습니다.(명확히 하기 위해 필드가 적은 구조체에만 이렇게 해야합니다):
 
 ```go
 goku := Saiyan{"Goku", 9000}
 ```
 
-What all of the above examples do is declare a variable `goku` and assign a value to it.
+위의 예제가 하는 일은 `goku` 변수를 선언하고 값을 할당하는 것입니다.
 
-Many times though, we don't want a variable that is directly associated with our value but rather a variable that has a pointer to our value. A pointer is a memory address; it's the location of where to find the actual value. It's a level of indirection. Loosely, it's the difference between being at a house and having directions to the house.
+그러나 많은 경우에 우리 값에 직접 연관되는 변수가 아닌 값을 가리키는 포인터 변수를 원하는 경우가 많습니다. 포인터는 메모리 주소입니다; 실제 값을 찾을 수 있는 위치입니다. 간접적인 수준입니다. 말하자면 집에 있는 것과 집의 방향을 가리키는 정도의 차이입니다.
 
 Why do we want a pointer to the value, rather than the actual value? It comes down to the way Go passes arguments to a function: as copies. Knowing this, what does the following print?
+왜 실제 값이 아닌 값을 가리키는 포인터가 필요할까요? 그 이유는 Go가 함수에 인자를 전달하는 방식이 사본 방식이기 때문입니다. 이것을 생각하면서 다음 코드에는 무엇이 출력될까요? 
 
 ```go
 func main() {
@@ -469,7 +470,7 @@ func Super(s Saiyan) {
 }
 ```
 
-The answer is 9000, not 19000. Why? Because `Super` made changes to a copy of our original `goku` value and thus, changes made in `Super` weren't reflected in the caller. To make this work as you probably expect, we need to pass a pointer to our value:
+정답은 19000이 아니라 9000 입니다. 왜일까요? `Super`함수가 원본 `goku`의 사본을 만들고 변경하기 때문입니다. 그래서 `Super`에서 발생한 변경이 호출자에게 반영되지 않았습니다. 원하는대로 동작시키려면 값을 포인터로 넘겨야 합니다:
 
 ```go
 func main() {
