@@ -294,7 +294,7 @@ func getPower() int {
 }
 ```
 
-It's important that you remember that `:=` is used to declare the variable as well as assign a value to it. Why? Because a variable can't be declared twice (not in the same scope anyway). If you try to run the following, you'll get an error.
+중요한 것은 `:=`는 변수를 선언하면서 할당도 한다는 것을 기억하는 것입니다. 왜일까요? 왜냐하면 변수는 두번 선언될 수 없기 때문입니다(어쨌든 동일 범위에 있지 않음). 다음과 같이 실행 하면 오류가 발생합니다.
 
 ```go
 func main() {
@@ -308,10 +308,9 @@ func main() {
 }
 ```
 
-The compiler will complain with *no new variables on left side of :=*. This means that when we first declare a variable, we use `:=` but on subsequent assignment, we use the assignment operator `=`. This makes a lot of sense, but it can be tricky for your muscle memory to remember when to switch between the two.
+컴파일러는 *:= 왼쪽에 새로운 변수가 없다*고 불평할 것입니다. 이는 처음 변수를 할당할 때는 `:=`를 사용해야 하고 이후 할당문에서는 `=` 연산자를 사용해야 함을 의미합니다. 이는 많은 의미를 지니지만, 이 두 사이를 전환 하는 것을 기억하기 어려울 수도 있습니다.
 
-If you read the error message closely, you'll notice that *variables* is plural. That's because Go lets you assign multiple variables (using either `=` or `:=`):
-
+오류 메시지를 자세히 읽어보면 *variables*가 복수라는 것을 알수 있습니다. 이는 Go 는 (`=` 또는 `:=`를 사용해) 여러 변수에 할당할 수 있기 때문입니다.
 
 ```go
 func main() {
@@ -321,6 +320,7 @@ func main() {
 ```
 
 As long as one of the variables is new, `:=` can be used. Consider:
+변수 중 하나가 새로운 선언이라면, `:=`를 사용할 수 있습니다. 다음을 보세요:
 
 ```go
 func main() {
@@ -332,9 +332,9 @@ func main() {
 }
 ```
 
-Although `power` is being used twice with `:=`, the compiler won't complain the second time we use it, it'll see that the other variable, `name`, is a new variable and allow `:=`. However, you can't change the type of `power`. It was declared (implicitly) as an integer and thus, can only be assigned integers.
+`power`는 `:=`를 이용해 두번 사용되었지만 컴파일러는 두 번째 사용시 불평하지 않을 것입니다. 컴파일러는 다른 변수 `name`이 새로운 변수이므로 이를 허용하는 것입니다. 그러나 `power`의 타입을 변경할 수는 없습니다. (암묵적으로) 정수로 선언되었고 정수만 할당할 수 있습니다.
 
-For now, the last thing to know is that, like imports, Go won't let you have unused variables. For example,
+이제 마지막으로 알려드릴 것은 import 와 마찬가지로 Go는 사용하지 않은 변수를 허용하지 않는다는 것입니다. 예를 들면,
 
 ```go
 func main() {
@@ -343,11 +343,11 @@ func main() {
 }
 ```
 
-won't compile because `name` is declared but not used. Like unused imports it'll cause some frustration, but overall I think it helps with code cleanliness and readability.
+이 코드는 `name`이 선언되었지만 사용되지 않았기 때문에 컴파일 되지 않을 것입니다. 사용하지 않은 import 와 마찬가지로 약간의 불만아 있겠지만 전반적으로 코드를 깔끔하게 하고 가독성을 높이는데 도움이 된다고 생각합니다.
 
-There's more to learn about declaration and assignments. For now, remember that you'll use `var NAME TYPE` when declaring a variable to its zero value, `NAME := VALUE` when declaring and assigning a value, and `NAME = VALUE` when assigning to a previously declared variable.
+변수 할당과 선언에 대해 알아야 할 것이 더 있습니다. 지금은 변수를 선언하고 0 값을 할당할 때는 `var NAME TYPE`을 사용하고, 변수를 선언하고 값을 할당할 때는 `NAME := VALUE`를 사용하고, 이미 선언된 변수에 값을 할당할 때는 `NAME = VALUE`를 사용한다는 것만 기억하세요.
 
-## Function Declarations
+## 함수 선언
 
 This is a good time to point out that functions can return multiple values. Let's look at three functions: one with no return value, one with one return value, and one with two return values.
 
