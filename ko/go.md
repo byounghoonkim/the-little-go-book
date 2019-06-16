@@ -350,6 +350,7 @@ func main() {
 ## 함수 선언
 
 This is a good time to point out that functions can return multiple values. Let's look at three functions: one with no return value, one with one return value, and one with two return values.
+함수가 여러개의 값을 리턴할 수 있다는 것을 말해 줄 때입니다. 세 함수를 확인해 봅시다: 리턴 값이 없는 것, 리턴 값이 하나인 것, 리턴 값이 2개인것.
 
 ```go
 func log(message string) {
@@ -362,7 +363,7 @@ func power(name string) (int, bool) {
 }
 ```
 
-We'd use the last one like so:
+마지막 함수를 아래와 같이 사용합니다:
 
 ```go
 value, exists := power("goku")
@@ -371,7 +372,7 @@ if exists == false {
 }
 ```
 
-Sometimes, you only care about one of the return values. In these cases, you assign the other values to `_`:
+가끔은 하나의 반환 값만 신경쓸 때도 있습니다. 이 경우에는 나머지 다른 값은 `_`에 할당합니다:
 
 ```go
 _, exists := power("goku")
@@ -380,9 +381,9 @@ if exists == false {
 }
 ```
 
-This is more than a convention. `_`, the blank identifier, is special in that the return value isn't actually assigned. This lets you use `_` over and over again regardless of the returned type.
+이는 관습 이상 이상입니다. `_`, 공백 식별자는 실제로 값을 할당하지 않는다는 점에서 특별합니다. 그래서 다른 리턴 타입에도 관계 없이 `_`를 사용할 수 있습니다.
 
-Finally, there's something else that you're likely to run into with function declarations. If parameters share the same type, we can use a shorter syntax:
+마지막으로 함수 선언에서 사용할만한 것이 있습니다. 파라미터들이 같은 타입을 공유한다면 짧은 구문을 사용할 수 있습니다:
 
 ```go
 func add(a, b int) int {
@@ -390,15 +391,15 @@ func add(a, b int) int {
 }
 ```
 
-Being able to return multiple values is something you'll use often. You'll also frequently use `_` to discard a value. Named return values and the slightly less verbose parameter declaration aren't that common. Still, you'll run into all of these sooner than later so it's important to know about them.
+여러 값을 반환할 수 있다는 점은 자주 사용됩니다. `_`도 값을 무시하기 위해 자주 사용됩니다. 이름 붙인 반환값과 약간은 덜 자세한 파라미터 선언은 일반적이지 않습니다. 그래도 곧 이런 처리들을 해야 할 수 있어서서 이들에 대해 아는 것도 중요합니다.
 
-## Before You Continue
+## 계속 진행하기 전에
 
-We looked at a number of small individual pieces and it probably feels disjointed at this point. We'll slowly build larger examples and hopefully, the pieces will start to come together.
+우리는 여러 개의 작은 개별 부분들 살펴 보았고 아마도 이 시점에서는 흩어져 있을 것입니다. 우리는 천천히 더 큰 예제를 만들어 낼 것이고 조각들은 모이기 시작할 것입니다.
 
-If you're coming from a dynamic language, the complexity around types and declarations might seem like a step backwards. I don't disagree with you. For some systems, dynamic languages are categorically more productive.
+만약 동적 언어를 사용 했었다면 타입과 선언에 관련된 복잡성은 퇴보 처럼 보일 수 있습니다. 그러나 그렇지 않습니다. 일부 시스템에서는 동적 언어가 더 생산적입니다.
 
-If you're coming from a statically typed language, you're probably feeling comfortable with Go. Inferred types and multiple return values are nice (though certainly not exclusive to Go). Hopefully as we learn more, you'll appreciate the clean and terse syntax.
+만약 정적 타입 언어를 사용했었다면 아마도 Go에 편안함을 느낄 것입니다. 유추 타입과 여러 반환값을 훌륭합니다(Go만의 특징은 아니지만). 좀더 배울 수록 깨끗하고 간겨란 구문을 이해할 수 있기를 바랍니다.
 
 # Chapter 2 - Structures
 
