@@ -401,13 +401,13 @@ func add(a, b int) int {
 
 만약 정적 타입 언어를 사용했었다면 아마도 Go에 편안함을 느낄 것입니다. 유추 타입과 여러 반환값을 훌륭합니다(Go만의 특징은 아니지만). 좀더 배울 수록 깨끗하고 간겨란 구문을 이해할 수 있기를 바랍니다.
 
-# Chapter 2 - Structures
+# 2장 - 구조체
 
-Go isn't an object-oriented (OO) language like C++, Java, Ruby and C#. It doesn't have objects nor inheritance and thus, doesn't have the many concepts associated with OO such as polymorphism and overloading.
+Go는 C++, Java, Ruby 그리고 C#과 같은 객체 지향(object-oriented, OO) 언어가 아닙니다. 객체나 상속이 없습니다. 그래서 다형성이나 오버 로딩 등과 같은 객체 지향과 관련된 많은 개념들을 가지고 있지 않습니다.
 
-What Go does have are structures, which can be associated with methods. Go also supports a simple but effective form of composition. Overall, it results in simpler code, but there'll be occasions where you'll miss some of what OO has to offer. (It's worth pointing out that *composition over inheritance* is an old battle cry and Go is the first language I've used that takes a firm stand on the issue.)
+Go는 메서드와 연관 될 수 있는 구조체를 가지고 있습니다. 또한 Go는 간단하지만 효과적인 형태의 구성을 지원합니다. 전반적으로 더 간단한 코드가 나오지만 객체 지향이 제공하는 기능 중 일부를 제공하지 못하는 경우가 있습니다. (상속에 대해 구성은 오래된 함성이라는 것은 가치 있는 지적이고 이 이슈에 대해 확고한 입장을 가진 것두 내가 사용한 첫 번째 언어가 Go 입니다.)
 
-Although Go doesn't do OO like you may be used to, you'll notice a lot of similarities between the definition of a structure and that of a class. A simple example is the following `Saiyan` structure:
+Go가 사용하던 객체 지향이 아니더라도 클래스의 그것과 구조체의 선언은 매우 유사하다는 것을 알게 될 것입니다. 간단한 예는 다음에 `Saiyan` 구조체 입니다:
 
 ```go
 type Saiyan struct {
@@ -416,13 +416,13 @@ type Saiyan struct {
 }
 ```
 
-We'll soon see how to add a method to this structure, much like you'd have methods as part of a class. Before we do that, we have to dive back into declarations.
+클래스의 부분으로 메서드를 추가 하는 것 처럼 이 구조체에 메서드를 추가하는 방법을 곧 보여 드릴겁니다. 그 전에 선언을 먼저 살펴 봅시다.
 
-## Declarations and Initializations
+## 선언과 초기화
 
-When we first looked at variables and declarations, we looked only at built-in types, like integers and strings. Now that we're talking about structures, we need to expand that conversation to include pointers.
+변수와 선언을 살펴보면 정수와 문자열 같은 내장타입만 사용한 것을 볼 수 있습니다. 지금은 구조체에 대한 것만 이야기 하고, 이야기를 포인터를 포함하는 부분 까지 확장해야 합니다.
 
-The simplest way to create a value of our structure is:
+구조체의 값을 생성하는 가장 단순한 방법은 다음과 같습니다:
 
 ```go
 goku := Saiyan{
@@ -430,10 +430,9 @@ goku := Saiyan{
   Power: 9000,
 }
 ```
+*참고:* 위 구조체의 마지막 줄 `,` 끝 문자는 필수입니다. 없애면 컴파일러가 오류를 발생시킵니다. 그 반대의 형식이나 언어를 사용했다면 이 부분에서 일괄성을 느낄 수 있을 겁니다.
 
-*Note:* The trailing `,` in the above structure is required. Without it, the compiler will give an error. You'll appreciate the required consistency, especially if you've used a language or format that enforces the opposite.
-
-We don't have to set all or even any of the fields. Both of these are valid:
+모든 필드를 다 설정할 필요는 없습니다. 아무 필드를 설정하지 않아도 됩니다. 아래 두 가지는 모두 유효합니다:
 
 ```go
 goku := Saiyan{}
@@ -444,7 +443,7 @@ goku := Saiyan{Name: "Goku"}
 goku.Power = 9000
 ```
 
-Just like unassigned variables have a zero value, so do fields.
+할당되지 않은 변수와 마찬가지로 0 값을 가질 것이므로 필드도 값을 가집니다.
 
 Furthermore, you can skip the field name and rely on the order of the field declarations (though for the sake of clarity, you should only do this for structures with few fields):
 
