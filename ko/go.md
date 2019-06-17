@@ -559,7 +559,7 @@ func NewSaiyan(name string, power int) Saiyan {
 
 ## New
 
-Despite the lack of constructors, Go does have a built-in `new` function which is used to allocate the memory required by a type. The result of `new(X)` is the same as `&X{}`:
+생성자가 없음에도 불구하고 Go는 타입에 필요한 메모리를 할당하는 내장 `new` 함수를 가지고 있습니다. `new(X)`의 결과는 `&X{}`와 동일합니다:
 
 ```go
 goku := new(Saiyan)
@@ -567,7 +567,7 @@ goku := new(Saiyan)
 goku := &Saiyan{}
 ```
 
-Which you use is up to you, but you'll find that most people prefer the latter whenever they have fields to initialize, since it tends to be easier to read:
+둘 중 어느 것을 사용하든 당신의 선택이지만, 읽기 쉬운 경향이 있기 때문에 필드를 초기화 할때는 후자를 선호한다는 것을 알수 있을 것이다:
 
 ```go
 goku := new(Saiyan)
