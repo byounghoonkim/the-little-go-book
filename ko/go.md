@@ -676,11 +676,11 @@ fmt.Println(goku.Person.Name)
 
 상속보다 구성이 좋을까요? 많은 사람들은 구성이 코드를 공유하는 좀더 강력한 방법이라고 생각합니다. 상속을 사용할 때, 클래스는 상위 클래스와 밀접하고 연관되어(coupled) 있고 행동보다는 계층 구조에 집중하게 됩니다.
 
-### Overloading
+### 오버로딩
 
-While overloading isn't specific to structures, it's worth addressing. Simply, Go doesn't support overloading. For this reason, you'll see (and write) a lot of functions that look like `Load`, `LoadById`, `LoadByName` and so on.
+오버로딩은 구조체에 특화된 것은 아니지만 언급할 가지는 있습니다. 단순히 Go는 오버로딩을 지원하지 않습니다. 이런 이유로 `Load`, `LoadById`, `LoadByName` 등과 같은 많은 함수를 보게 될 것입니다.
 
-However, because implicit composition is really just a compiler trick, we can "overwrite" the functions of a composed type. For example, our `Saiyan` structure can have its own `Introduce` function:
+그러나 암시적인 구성은 구성된 타입의 함수를 덮어 쓸 수 있는 컴파일러 트릭입니다. 예를 들면 `Saiyan` 구조체는 자체적인 `Introduce`함수를 가질 수 있습니다:
 
 ```go
 func (s *Saiyan) Introduce() {
@@ -688,23 +688,23 @@ func (s *Saiyan) Introduce() {
 }
 ```
 
-The composed version is always available via `s.Person.Introduce()`.
+구성된 버전의 함수는 항상 `s.Person.Introduce()`를 통해 호출 가능합니다.
 
-## Pointers versus Values
+## 포인터와 값
 
-As you write Go code, it's natural to ask yourself *should this be a value, or a pointer to a value?* There are two pieces of good news. First, the answer is the same regardless of which of the following we're talking about:
+Go 코드를 작성할 때, 자연스럽게 값을 써야 하는지 포인터를 써야 하는지에 대한 묻게 됩니다. 두 가지 좋은 소식이 있습니다. 첫 번째는 뒤에서 이야기 하는 것들은 어느 것을 쓰든 관계 없다는 것입니다:
 
-* A local variable assignment
-* Field in a structure
-* Return value from a function
-* Parameters to a function
-* The receiver of a method
+* 로컬 변수 할당
+* 구조체 필드
+* 함수의 리턴값
+* 함수로의 인자
+* 메소드의 리시버
 
-Secondly, if you aren't sure, use a pointer.
+둘째, 잘 모르겠으면 포인터를 사용하세요.
 
-As we already saw, passing values is a great way to make data immutable (changes that a function makes to it won't be reflected in the calling code). Sometimes, this is the behavior that you'll want but more often, it won't be.
+이미 봤겠지만, 값을 전달하는 것은 데이터를 변경하지 못하게 하는 좋은 방법입니다(함수에서 변경한 내용은 호출한 코드에 반영되지 않습니다). 때로는 이게 원하는 동작이지만, 대부분은 그렇지 않습니다.
 
-Even if you don't intend to change the data, consider the cost of creating a copy of large structures. Conversely, you might have small structures, say:
+데이터를 변경하려는 의도가 아니더라도 큰 구조체는 복사본을 생성하는 비용을 생각해 보세요. 반대로 작은 구조체일 수도 있습니다. 말하자면:
 
 ```go
 type Point struct {
@@ -713,13 +713,13 @@ type Point struct {
 }
 ```
 
-In such cases, the cost of copying the structure is probably offset by being able to access `X` and `Y` directly, without any indirection.
+이런 경우 구조체 복사 하는 비용은 직접 `X`와 `Y`에 접근할 수 있는 것으로 상쇄될 것입니다.
 
-Again, these are all pretty subtle cases. Unless you're iterating over thousands or possibly tens of thousands of such points, you wouldn't notice a difference.
+다시 말하지만, 이것들은 모두 미묘한 케이스입니다. 수천 수만번 이런 부분을 반복하지 않으면 차이점을 느끼지 못할 것입니다.
 
-## Before You Continue
+## 계속 진행하기 전에
 
-From a practical point of view, this chapter introduced structures, how to make an instance of a structure a receiver of a function, and added pointers to our existing knowledge of Go's type system. The following chapters will build on what we know about structures as well as the inner workings that we've explored.
+실용적인 관점에서 이 장에서는 구조체를 소개했고 구조체, 함수의 리시버의 인스턴스를 만드는 방법을 설명하고 Go 타입 시스템에 관한 지식에 포인터를 추가 했습니다. 이어지는 장은 우리가 탐구한 내적 작업과 구조체를 토대로 설명합니다.
 
 # Chapter 3 - Maps, Arrays and Slices
 
