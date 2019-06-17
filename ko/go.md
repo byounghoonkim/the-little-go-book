@@ -582,13 +582,14 @@ goku := &Saiyan {
 }
 ```
 
-Whichever approach you choose, if you follow the factory pattern above, you can shield the rest of your code from knowing and worrying about any of the allocation details.
+어떤 것을 선택하든 위 팩토리 패턴을 따르기만 하면 나머지 코드를 할당에 대한 세부 걱정과 지식이 필요 없도록 보호 할 수 있습니다.
 
-## Fields of a Structure
 
-In the example that we've seen so far, `Saiyan` has two fields `Name` and `Power` of types `string` and `int`, respectively. Fields can be of any type -- including other structures and types that we haven't explored yet such as arrays, maps, interfaces and functions.
+## 구조체의 필드
 
-For example, we could expand our definition of `Saiyan`:
+지금까지 보았던 예제에서 `Saiyan`은 `string`과 `int` 타입인 `Name`과 `Power` 필드를 가지고 있습니다. 필드는 다른 구조체나 아직 다루지 않은 배열, 맵, 인터페이스와 함수 등을 포함해서 어떤 타입도 가능합니다.
+
+예를 들면 `Saiyan`을 아래와 같이 확장할 수 있습다:
 
 ```go
 type Saiyan struct {
@@ -598,7 +599,7 @@ type Saiyan struct {
 }
 ```
 
-which we'd initialize via:
+다음과 같이 초기화 할 것입니다:
 
 ```go
 gohan := &Saiyan{
@@ -612,9 +613,9 @@ gohan := &Saiyan{
 }
 ```
 
-## Composition
+## 구성(Composition)
 
-Go supports composition, which is the act of including one structure into another. In some languages, this is called a trait or a mixin. Languages that don't have an explicit composition mechanism can always do it the long way. In Java, there's the possibility to extend structures with *inheritance* but, in a scenario where this is not an option, a mixin would be written like this:
+Go는 하나의 구조체를 다른 구조체에 포함시키는 동작을 하는 구성을 지원합니다. 어떤 언어에서는 이것을 특성(trait) 또는 혼합(maxin)이라고 합니다. 명시적으로 구성 메커니즘이 없는 언어는 항상 먼길을 돌아 야 작업할 수 있습니다. 자바의 경우에 *상속*으로 구조체를 확장할 수 있지만, 옵션이 없는 시나리오에서는 다음과 같이 혼합을 구현합니다:
 
 ```java
 public class Person {
@@ -637,7 +638,7 @@ public class Saiyan {
 }
 ```
 
-This can get pretty tedious. Every method of `Person` needs to be duplicated in `Saiyan`. Go avoids this tediousness:
+이것은 많이 장황해질 수 있습니다. `Person`의 모든 메소드를 `Saiyan`에 복제해야 합니다. Go는 이런 장황함을 이렇게 피합니다:
 
 ```go
 type Person struct {
@@ -661,7 +662,7 @@ goku := &Saiyan{
 goku.Introduce()
 ```
 
-The `Saiyan` structure has a field of type `*Person`. Because we didn't give it an explicit field name, we can implicitly access the fields and functions of the composed type. However, the Go compiler *did* give it a field name, consider the perfectly valid:
+`Saiyan` 구조체는 `*Person` 타입의 필드를 가집니다. 필드에 명시적으로 필드 이름을 주지 않았기 때문에 구성된 타입의 필드와 함수를 암묵적으로 접근할 수 있습니다. 그러나 Go 컴파일러는 필드의 이름을 지정 했습니다. 다음은 완벽히 유효하다고 간주합니다:
 
 ```go
 goku := &Saiyan{
@@ -671,9 +672,9 @@ fmt.Println(goku.Name)
 fmt.Println(goku.Person.Name)
 ```
 
-Both of the above will print "Goku".
+위는 둘다 "Goku"를 출력합니다.
 
-Is composition better than inheritance? Many people think that it's a more robust way to share code. When using inheritance, your class is tightly coupled to your superclass and you end up focusing on hierarchy rather than behavior.
+상속보다 구성이 좋을까요? 많은 사람들은 구성이 코드를 공유하는 좀더 강력한 방법이라고 생각합니다. 상속을 사용할 때, 클래스는 상위 클래스와 밀접하고 연관되어(coupled) 있고 행동보다는 계층 구조에 집중하게 됩니다.
 
 ### Overloading
 
