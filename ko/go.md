@@ -149,7 +149,7 @@ func main() {
 
 `main.go`라는 파일로 저장하세요. 지금은 어디든 저장해도 됩니다. 사소한 예제를 위해서 Go 작업 공간을 사용할 필요는 없습니다.
 
-다음으로 쉘(명령창)을 열고 파일을 저장한 디렉토리로 이동합니다. 제 경우엔 `cd ~/code` 입니다. 
+다음으로 쉘(명령창)을 열고 파일을 저장한 디렉토리로 이동합니다. 제 경우엔 `cd ~/code` 입니다.
 
 마지막으로, 아래와 같이 입력해 프로그램을 실행합니다:
 
@@ -171,7 +171,7 @@ go run --work main.go
 go build main.go
 ```
 
-이 명령은 `main` 이라는 실행 파일을 생성할 것입니다. 리눅스나 OSX에서는 실행을 위해서는 점-슬래시를 앞에 붙여주어야 합니다. 그래서 `./main`이라고 입력해야 합니다. 
+이 명령은 `main` 이라는 실행 파일을 생성할 것입니다. 리눅스나 OSX에서는 실행을 위해서는 점-슬래시를 앞에 붙여주어야 합니다. 그래서 `./main`이라고 입력해야 합니다.
 
 개발하는 동안 `go run` 또는 `go build`를 사용할 수 있습니다. 그렇지만 코드를 배포할 때는 `go build`를 통해 생성한 바이너리를 배포하고 실행하게 될 것입니다.
 
@@ -456,7 +456,7 @@ goku := Saiyan{"Goku", 9000}
 그러나 많은 경우에 우리 값에 직접 연관되는 변수가 아닌 값을 가리키는 포인터 변수를 원하는 경우가 많습니다. 포인터는 메모리 주소입니다; 실제 값을 찾을 수 있는 위치입니다. 간접적인 수준입니다. 말하자면 집에 있는 것과 집의 방향을 가리키는 정도의 차이입니다.
 
 Why do we want a pointer to the value, rather than the actual value? It comes down to the way Go passes arguments to a function: as copies. Knowing this, what does the following print?
-왜 실제 값이 아닌 값을 가리키는 포인터가 필요할까요? 그 이유는 Go가 함수에 인자를 전달하는 방식이 사본 방식이기 때문입니다. 이것을 생각하면서 다음 코드에는 무엇이 출력될까요? 
+왜 실제 값이 아닌 값을 가리키는 포인터가 필요할까요? 그 이유는 Go가 함수에 인자를 전달하는 방식이 사본 방식이기 때문입니다. 이것을 생각하면서 다음 코드에는 무엇이 출력될까요?
 
 ```go
 func main() {
@@ -484,11 +484,11 @@ func Super(s *Saiyan) {
 }
 ```
 
-We made two changes. The first is the use of the `&` operator to get the address of our value (it's called the *address of* operator). Next, we changed the type of parameter `Super` expects. It used to expect a value of type `Saiyan` but now expects an address of type `*Saiyan`, where `*X` means *pointer to value of type X*. There's obviously some relation between the types `Saiyan` and `*Saiyan`, but they are two distinct types.
+두 가지를 변경했습니다. 첫 번째는 (주소 연산자라고 불리는) `&` 연산자를 값의 주소를 얻기 위해 사용 했습니다. 다음은 `Super`의 인자를 변경했습니다. 기존에는 `Saiyan` 타입의 값을 받았지만 지금은 `**Saiyan` 타입으로 주소를 받습니다. `*X`는 *X 타압의 값을 가리키는 포인터라*는 뜻입니다. 분명 `Saiyan`과 `*Saiyan` 사이는 어떤 관계가 있지만 둘은 다른 타입입니다.
 
-Note that we're still passing a copy of `goku's` value to `Super` it just so happens that `goku's` value has become an address. That copy is the same address as the original, which is what that indirection buys us. Think of it as copying the directions to a restaurant. What you have is a copy, but it still points to the same restaurant as the original.
+`goku`의 값이 주소로 변경 되었기 때문에 여전히 `Super`에 `goku`의 복사본을 넘겨주는 준다는 것에 주목해 주세요. 그 간접적으로 획득한 복사본 주소는 원본의 주소와 동일합니다. 이것을 식당을 가리키는 지시에 대한 복사라고 생각해보세요. 가지고 있는 것은 복사본이지만 여전히 동일한 식당을 가리키고 있습니다.
 
-We can prove that it's a copy by trying to change where it points to (not something you'd likely want to actually do):
+가리키는 곳을 변경하여 그것이 사본이라고 증명할 수 있습니다.(그러나 실제로는 그렇게 하고 싶지 않을 것 같군요):
 
 ```go
 func main() {
@@ -502,15 +502,15 @@ func Super(s *Saiyan) {
 }
 ```
 
-The above, once again, prints 9000. This is how many languages behave, including Ruby, Python, Java and C#. Go, and to some degree C#, simply make the fact visible.
+다시 위 코드는 9000을 출력합니다. 루비, 파이썬, 자바, C# 을 포함한 많은 언어가 이렇게 동작합니다. 가서 C#을 사용해 보면 사실을 쉽게 확인할 수 있습니다.
 
-It should also be obvious that copying a pointer is going to be cheaper than copying a complex structure. On a 64-bit machine, a pointer is 64 bits large. If we have a structure with many fields, creating copies can be expensive. The real value of pointers though is that they let you share values. Do we want `Super` to alter a copy of `goku` or alter the shared `goku` value itself?
+복잡한 구조체를 복사하는 것 보다 포인터를 복사하는 것이 더 효율적인라는 것은 분명합니다. 64비트 머신에서 포인터는 64비트 입니다. 만약 구조체가 많은 필드를 가지고 있다면 복사본을 만드는 것은 비싼 작업일 수 있습니다. 포인터의 진짜 가치는 값을 공유할 수 있다는 것입니다. `Super`가 `goku`의 복사본을 변경하거나 공유된 `goku` 값 자체를 변경하기를 원합니까?
 
-All this isn't to say that you'll always want a pointer. At the end of this chapter, after we've seen a bit more of what we can do with structures, we'll re-examine the pointer-versus-value question.
+이 모든 것이 항상 포인터를 사용해야 한다는 것을 뜻하지는 않습니다. 구조체로 할 수 있는 것을 더 살펴 본 후 이 장 끝에서 포인터 대 값에 대한 질문을 다시 검토 할 것입니다.
 
-## Functions on Structures
+## 구조체에 대한 함수
 
-We can associate a method with a structure:
+우리는 메소르를 구조체에 연결할 수 있습니다:
 
 ```go
 type Saiyan struct {
@@ -523,7 +523,7 @@ func (s *Saiyan) Super() {
 }
 ```
 
-In the above code, we say that the type `*Saiyan` is the **receiver** of the `Super` method. We call `Super` like so:
+위의 코드에서 `*Saiyan` 타입을 `Super`의 **리시버** 라고 말합니다. `Super`를 이렇게 호출 합니다:
 
 ```go
 goku := &Saiyan{"Goku", 9001}
@@ -531,9 +531,9 @@ goku.Super()
 fmt.Println(goku.Power) // will print 19001
 ```
 
-## Constructors
+## 생성자
 
-Structures don't have constructors. Instead, you create a function that returns an instance of the desired type (like a factory):
+구조체는 생성자가 없습니다. 대신, 필요한 타입의 인스턴스를 리턴하는 함수를 생성할 수 있습니다(팩토리 처럼):
 
 ```go
 func NewSaiyan(name string, power int) *Saiyan {
@@ -544,9 +544,9 @@ func NewSaiyan(name string, power int) *Saiyan {
 }
 ```
 
-This pattern rubs a lot of developers the wrong way. On the one hand, it's a pretty slight syntactical change; on the other, it does feel a little less compartmentalized.
+이 패턴은 많은 개발자들을 잘못된 길로 나가게 합니다. 아래는 아주 작은 문법적 변화를 준 것인데 좀더 적은 구획이 나누어진 느낌이 듭니다.
 
-Our factory doesn't have to return a pointer; this is absolutely valid:
+우리 팩토리 함수는 포인터를 리턴하지 않습니다; 이것도 확실히 유효합니다:
 
 ```go
 func NewSaiyan(name string, power int) Saiyan {
