@@ -721,28 +721,28 @@ type Point struct {
 
 실용적인 관점에서 이 장에서는 구조체를 소개했고 구조체, 함수의 리시버의 인스턴스를 만드는 방법을 설명하고 Go 타입 시스템에 관한 지식에 포인터를 추가 했습니다. 이어지는 장은 우리가 탐구한 내적 작업과 구조체를 토대로 설명합니다.
 
-# Chapter 3 - Maps, Arrays and Slices
+# 3장 - 맵, 배열 그리고 슬라이스
 
-So far we've seen a number of simple types and structures. It's now time to look at arrays, slices and maps.
+지금까지 간단한 타입과 구조체를 보았습니다. 이제 배열, 슬라이스 그리고 맵을 볼 차례입니다.
 
-## Arrays
+## 배열
 
-If you come from Python, Ruby, Perl, JavaScript or PHP (and more), you're probably used to programming with *dynamic arrays*. These are arrays that resize themselves as data is added to them. In Go, like many other languages, arrays are fixed. Declaring an array requires that we specify the size, and once the size is specified, it cannot grow:
+당신이 파이썬, 루비, 펄, 자바스크립트 또는 PHP (그리고 기타) 사용자라면 동적 배열을 사용해서 프로그래밍 하는데 익숙할 것입니다. 동적 배열은 데이터가 추가될 때 스스로 크기를 조정합니다. Go에서는 다른 언어와 마찬가지로 배열은 고정되어 있습니다. 배열을 선언하려면 크기를 지정해야 하며 한번 크기가 정해지면 커질 수 없습니다.
 
 ```go
 var scores [10]int
 scores[0] = 339
 ```
 
-The above array can hold up to 10 scores using indexes `scores[0]` through `scores[9]`. Attempts to access an out of range index in the array will result in a compiler or runtime error.
+위 배열은 `scores[0]`에서 `scores[9]`까지 10개의 socre를 담을 수 있습니다. 범위를 벗어나 접근하려고 하면 컴파일러 또는 런타임 오류가 발생할 것입니다.
 
-We can initialize the array with values:
+값들로 배열을 초기활 할 수 있습니다:
 
 ```go
 scores := [4]int{9001, 9333, 212, 33}
 ```
 
-We can use `len` to get the length of the array. `range` can be used to iterate over it:
+배열의 길이를 구하려면 `len`을 사용합니다. `range`를 배열 요소에 반복 접근 할 수 있습니다.
 
 ```go
 for index, value := range scores {
@@ -750,17 +750,17 @@ for index, value := range scores {
 }
 ```
 
-Arrays are efficient but rigid. We often don't know the number of elements we'll be dealing with upfront. For this, we turn to slices.
+배열은 효율적이지만 경직되어 있습니다. 우리는 종종 다루어야 할 요소의 개수를 미리 알지 못합니다. 이를 위해 슬라이스를 사용합니다.
 
-## Slices
+## 슬라이스
 
-In Go, you rarely, if ever, use arrays directly. Instead, you use slices. A slice is a lightweight structure that wraps and represents a portion of an array. There are a few ways to create a slice, and we'll go over when to use which later on. The first is a slight variation on how we created an array:
+Go에서는 배열을 직접 사용하는 경우는 거의 없습니다. 대신 슬라이스를 사용합니다. 슬라이스는 배열의 일부를 감싸고 나타내는 가벼운 구조체입니다. 슬라이스를 생성하는데는 몇 가지 방법이 있는데, 나중에 사용할 때 살보 볼 것입니다. 첫 번째는 배열을 만드는 방법의 약간 변형입니다: 
 
 ```go
 scores := []int{1,4,293,4,9}
 ```
 
-Unlike the array declaration, our slice isn't declared with a length within the square brackets. To understand how the two are different, let's see another way to create a slice, using `make`:
+배열 선언과는 달리 슬라이스는 대괄호([])안에 길이를 선언하지 않습니다. 이 둘이 어떻게 다른지 이해하기 위해 `make`를 사용해 슬라이스를 생성해 봅시다:
 
 ```go
 scores := make([]int, 10)
