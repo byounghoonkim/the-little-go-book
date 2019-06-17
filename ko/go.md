@@ -766,15 +766,15 @@ scores := []int{1,4,293,4,9}
 scores := make([]int, 10)
 ```
 
-We use `make` instead of `new` because there's more to creating a slice than just allocating the memory (which is what `new` does). Specifically, we have to allocate the memory for the underlying array and also initialize the slice.  In the above, we initialize a slice with a length of 10 and a capacity of 10. The length is the size of the slice, the capacity is the size of the underlying array. Using `make` we can specify the two separately:
+슬라이스를 생성하는 것은 단순히 메모리를 할당하는 것(`new`가 수행하는 것) 이상의 작업이 필요하기 때문에 `new` 대신 `make`를 사용합니다. 특히, 내부의 배열의 메모리를 할당하고 슬라이스 또한 초기화 해야 합니다. 위에서 길이가 10이고 용량이 10인 슬라이스를 초기화 합니다. 길이는 슬라이스의 크기이고 용량은 내부 배열의 크기 입니다. `make`를 사용하여 두 가지를 따로 지정할 수 있습니다:
 
 ```go
 scores := make([]int, 0, 10)
 ```
 
-This creates a slice with a length of 0 but with a capacity of 10. (If you're paying attention, you'll note that `make` and `len` *are* overloaded. Go is a language that, to the frustration of some, makes use of features which aren't exposed for developers to use.)
+이것은 길이는 0이지만 용량은 10인 슬라이스를 만듭니다. (주의를 좀 기울였다면 `make` 와 `len`이 오버로드 되었다는 것을 알게 될 것입니다. Go는 개발자에게 사용이 노출되지 않은 기능을 사용하기도 해 좌절감을 불러 일어키는 언어 입니다.)
 
-To better understand the interplay between length and capacity, let's look at some examples:
+길이와 용량의 상호 작용에 대해 더 이해하기 위해서 몇 가지 예제를 살펴 보겠습니다:
 
 ```go
 func main() {
@@ -783,8 +783,7 @@ func main() {
   fmt.Println(scores)
 }
 ```
-
-Our first example crashes. Why? Because our slice has a length of 0. Yes, the underlying array has 10 elements, but we need to explicitly expand our slice in order to access those elements. One way to expand a slice is via `append`:
+첫 번째 예제는 크래시가 발생 합니다. 왜냐하면 슬라이스의 길이가 0이기 때문입니다. 맞습니다. 내부 배열은 10개의 요소를 가지고 있지만 이 요소들에 접근하려면 명시적으로 확장해야 합니다. 슬라이스를 확장하는 방법 중 하나는 `append`를 통하는 것입니다:
 
 ```go
 func main() {
