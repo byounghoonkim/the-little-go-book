@@ -938,8 +938,7 @@ func removeAtIndex(source []int, index int) []int {
 }
 ```
 
-마지막으로,
-Finally, now that we know about slices, we can look at another commonly used built-in function: `copy`. `copy` is one of those functions that highlights how slices change the way we code. Normally, a method that copies values from one array to another has 5 parameters: `source`, `sourceStart`, `count`, `destination` and `destinationStart`. With slices, we only need two:
+마지막으로, 슬라이스에 대해 알았고 흔히 사용되는 내장 함수인 `copy`에 대해 살펴 볼 수 있습니다. `copy`는 우리가 코딩하는 방법을 슬라이스가 어떻게 변화시키는지 잘 알려주는 함수 중 하나 입니다. 일반적으로, 배열에서 배열로 복사 하는 메소드는 `source`, `sourceStart`, `count`, `destination` 그리고 `destinationStart` 와 같이 5가지 파라미터가 필요하다. 슬라이스를 이용하면 단 두개만 필요하다:
 
 ```go
 import (
@@ -961,9 +960,10 @@ func main() {
 }
 ```
 
-Take some time and play with the above code. Try variations. See what happens if you change copy to something like `copy(worst[2:4], scores[:5])`, or what if you try to copy more or less than `5` values into `worst`?
 
-## Maps
+시간을 들여 위 코드를 가지고 놀아보시기 바랍니다. 변형을 시도해 보세요.  `copy(worst[2:4], scores[:5])` 같이 변경 했을 때 어떤 일이 벌어지는지 확인해 보세요. `5`보다 크거나 작은 갯수의 값들을 `worst`에 복사할 때는 어떻게 되나요?
+
+## 맵
 
 Maps in Go are what other languages call hashtables or dictionaries. They work as you expect: you define a key and value, and can get, set and delete values from it.
 
