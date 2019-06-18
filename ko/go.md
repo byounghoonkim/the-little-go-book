@@ -913,14 +913,14 @@ Go에서는 슬라이스를 활용합니다:
 strings.Index(haystack[5:], " ")
 ```
 
-We can see from the above example, that `[X:]` is shorthand for *from X to the end* while `[:X]` is shorthand for *from the start to X*. Unlike other languages, Go doesn't support negative values. If we want all of the values of a slice except the last, we do:
+위 예제에서 `[:X]`는 시작 부터 X까지, `[X:]`는 X부터 끝까지의 줄임말 임을 알수 있습니다. 다른 언어들과 달리 Go는 음수 값 인덱스를 지원하지 않습니다. 슬라이스의 마지막 값을 제외한 모든 값을 원한다면, 다음과 같이 합니다:
 
 ```go
 scores := []int{1, 2, 3, 4, 5}
 scores = scores[:len(scores)-1]
 ```
 
-The above is the start of an efficient way to remove a value from an unsorted slice:
+위는 정렬되지 않은 슬라이스에서 값을 제거하는 효율적인 방법의 시작입니다.
 
 ```go
 func main() {
@@ -929,7 +929,7 @@ func main() {
   fmt.Println(scores) // [1 2 5 4]
 }
 
-// won't preserve order
+// 순서를 보존 하지 않음
 func removeAtIndex(source []int, index int) []int {
   lastIndex := len(source) - 1
   //swap the last value and the value we want to remove
@@ -938,6 +938,7 @@ func removeAtIndex(source []int, index int) []int {
 }
 ```
 
+마지막으로,
 Finally, now that we know about slices, we can look at another commonly used built-in function: `copy`. `copy` is one of those functions that highlights how slices change the way we code. Normally, a method that copies values from one array to another has 5 parameters: `source`, `sourceStart`, `count`, `destination` and `destinationStart`. With slices, we only need two:
 
 ```go
