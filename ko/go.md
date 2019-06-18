@@ -965,9 +965,9 @@ func main() {
 
 ## 맵
 
-Maps in Go are what other languages call hashtables or dictionaries. They work as you expect: you define a key and value, and can get, set and delete values from it.
+다른 언어에서 해시나 딕션너리라고 부르는 것을 Go에서는 맵이라고 합니다. 맵은 키와 값을 정의하고 값을 읽어 오고, 설정하고, 삭제할 수 있습니다.
 
-Maps, like slices, are created with the `make` function. Let's look at an example:
+맵은 슬라이스 처럼 `make`함수로 만듭니다. 예제를 살펴봅시다:
 
 ```go
 func main() {
@@ -975,31 +975,31 @@ func main() {
   lookup["goku"] = 9001
   power, exists := lookup["vegeta"]
 
-  // prints 0, false
-  // 0 is the default value for an integer
+  // 0, false 가 출력됨
+  // 0 은 정수의 기본값
   fmt.Println(power, exists)
 }
 ```
 
-To get the number of keys, we use `len`. To remove a value based on its key, we use `delete`:
+키의 갯수를 얻으러면 `len`을 사용합니다. 키에 기반해 값을 제거하려면 `delete`를 사용합니다.
 
 ```go
-// returns 1
+// 1 반환
 total := len(lookup)
 
-// has no return, can be called on a non-existing key
+// 반환값이 없음, 존재하지 않은 키로 호출 가능함.
 delete(lookup, "goku")
 ```
 
-Maps grow dynamically. However, we can supply a second argument to `make` to set an initial size:
+맵은 동적으로 커집니다. 그러나 초기 크기를 지정하기 위해 `make`의 두번째 인자를 줄 수 있습니다.
 
 ```go
 lookup := make(map[string]int, 100)
 ```
 
-If you have some idea of how many keys your map will have, defining an initial size can help with performance.
+얼마나 많은 키가 필요한지 알면 초기 크기를 지정하여 성능에 도움을 줄 수 있습니다.
 
-When you need a map as a field of a structure, you define it as:
+구조체에 필드로 맵이 필요하면, 다음과 같이 정의 합니다:
 
 ```go
 type Saiyan struct {
@@ -1008,17 +1008,17 @@ type Saiyan struct {
 }
 ```
 
-One way to initialize the above is via:
+위 구조체를 초기화 하는 방법은 아래와 같습니다:
 
 ```go
 goku := &Saiyan{
   Name: "Goku",
   Friends: make(map[string]*Saiyan),
 }
-goku.Friends["krillin"] = ... //todo load or create Krillin
+goku.Friends["krillin"] = ... //todo Krillin을 로드하거나 생성해야 함
 ```
 
-There's yet another way to declare and initialize values in Go. Like `make`, this approach is specific to maps and arrays. We can declare as a composite literal:
+Go에서 값을 선언하고 초기화 하는 또 다른 방법이 있습니다. `make` 처럼, 이 접근법은 맵과 배열에 한정적입니다. 다음과 같이 복합 리터널로 선언할 수 있습니다:
 
 ```go
 lookup := map[string]int{
@@ -1027,7 +1027,7 @@ lookup := map[string]int{
 }
 ```
 
-We can iterate over a map using a `for` loop combined with the `range` keyword:
+`for` 루프와 `range` 키워드를 조합해 맵을 순회할 수 있습니다:
 
 ```go
 for key, value := range lookup {
@@ -1035,11 +1035,11 @@ for key, value := range lookup {
 }
 ```
 
-Iteration over maps isn't ordered. Each iteration over a lookup will return the key value pair in a random order.
+맵을 통해 순회를 할 수는 없습니다. 순회가 반복될 때마다 키와 값의 쌍이 임의의 순서대로 반환됩니다.
 
-## Pointers versus Values
+## 포인터와 값
 
-We finished Chapter 2 by looking at whether you should assign and pass pointers or values. We'll now have this same conversation with respect to array and map values. Which of these should you use?
+우리는 포인터를 전달해야 하는지 값을 전달해야 하는지에 대해 살펴보면서 2장을 마쳤습니다. 배열과 맵에 대해서도 동일한 주제를 다룰 것입니다. 다음 중 어느 것을 사용해야 할까요?
 
 ```go
 a := make([]Saiyan, 10)
@@ -1047,15 +1047,15 @@ a := make([]Saiyan, 10)
 b := make([]*Saiyan, 10)
 ```
 
-Many developers think that passing `b` to, or returning it from, a function is going to be more efficient. However, what's being passed/returned is a copy of the slice, which itself is a reference. So with respect to passing/returning the slice itself, there's no difference.
+많은 개발자들이 함수에 `b`를 넘기거나 반환 받는게 더 효율적이다라고 생각합니다. 그러나 전달되는 것은 슬라이스 자체를 참조하는 복사본입니다. 따라서 슬라이스 자체를 넘기고 반환하는 것과 차이가 없습니다.
 
-Where you will see a difference is when you modify the values of a slice or map. At this point, the same logic that we saw in Chapter 2 applies. So the decision on whether to define an array of pointers versus an array of values comes down to how you use the individual values, not how you use the array or map itself.
+차이는 슬라이스나 맵의 값을 수정할 때 나타납니다. 이 시점에는 2장에서 봤던 것과 동일한 논리가 적용됩니다. 그래서 값의 배열과 포인터의 배열 중 어떤 것으로 정의할지 결정은 배열이나 맵 자체를 어떻게 사용하느냐가 아니라 개별 값들을 어떻게 사용하느냐에 따라 좌우 됩니다.
 
-## Before You Continue
+## 계속 진행하기 전에
 
-Arrays and maps in Go work much like they do in other languages. If you're used to dynamic arrays, there might be a small adjustment, but `append` should solve most of your discomfort. If we peek beyond the superficial syntax of arrays, we find slices. Slices are powerful and they have a surprisingly large impact on the clarity of your code.
+Go에서 배열과 맵은 다른 언어와 매우 유사하게 동작합니다. 여러분이 동적 배열을 사용했다면 약간의 조정이 필요하겠지만 `append`가 대부분의 불편함을 해소해 줄 것입니다. 배열의 피상적인 문법을 넘어면 우리는 슬라이스를 발견합니다. 슬라이스는 강력하고 코드의 명확성에 놀라울 만큼 큰 영향을 줍니다.
 
-There are edge cases that we haven't covered, but you're not likely to run into them. And, if you do, hopefully the foundation we've built here will let you understand what's going on.
+우리가 다루지 않은 엣지 케이스(edge case)가 있습니다만 그 케이스에 빠질 가능성은 낮습니다. 그리고 그런 케이스에 빠져도 여기서 익힌 내용으로 무슨 일이 일어나고 있는지 이해하게 될 것입니다.
 
 # Chapter 4 - Code Organization and Interfaces
 
