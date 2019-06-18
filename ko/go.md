@@ -1205,15 +1205,14 @@ func LoadItem(id int) *models.Item {
 }
 ```
 
-You'll often need to share more than just `models`, so you might have other similar folder named `utilities` and such. The important rule about these shared packages is that they shouldn't import anything from the `shopping` package or any sub-packages. In a few sections, we'll look at interfaces which can help us untangle these types of dependencies.
+가끔 `models` 이상의 공유가 필요할 때가 있기 때문에 `utilities`와 같은 폴더가 있을 수도 있습니다. 이런 공유 패키지에 대한 중요한 규칙은 다른 하위 패키지나 `shopping` 패키지에서 아무것도 임포트 하지 않아야 한다는 것입니다. 몇몇 섹션에서 이러한 유형의 종속성을 해결할 수 있는 인터페이스를 살볼 것입니다.
 
-### Visibility
+## 가시성
 
-Go uses a simple rule to define what types and functions are visible outside of a package. If the name of the type or function starts with an uppercase letter, it's visible. If it starts with a lowercase letter, it isn't.
+Go는 타입과 함수가 패키지 바깥으로 노출되는 것에 대해 정의 하는 간단한 규칙이 있습니다. 타입이나 함수의 이름이 대문자로 시작하면 노출 됩니다. 소문자로 시작하면 노출되지 않습니다.
 
-This also applies to structure fields. If a structure field name starts with a lowercase letter, only code within the same package will be able to access them.
 
-For example, if our `items.go` file had a function that looked like:
+예를 들면, `items.go` 파일이 아래와 같은 함수를 가지고 있다면:
 
 ```go
 func NewItem() *Item {
@@ -1221,23 +1220,24 @@ func NewItem() *Item {
 }
 ```
 
-it could be called via `models.NewItem()`. But if the function was named `newItem`, we wouldn't be able to access it from a different package.
+그 함수는 `models.NewItem()`을 통해 호출할 수 있습니다. 그러나 함수 이름이 `newItem`이었다면 다른 패키지에서 이 함수를 호출할 수 없었을 것입니다.
 
-Go ahead and change the name of the various functions, types and fields from the `shopping` code. For example, if you rename the `Item's` `Price` field to `price`, you should get an error.
+`shopping` 코드에서 다양한 함수, 타입 및 필드 이름을 변경해 보세요. 예를 들면, `Item의 Price`를 `price`로 변경하면 오류가 발생할 것입니다.
 
-### Package Management
+### 패키지 관리
 
-The `go` command we've been using to `run` and `build` has a `get` subcommand which is used to fetch third-party libraries. `go get` supports various protocols but for this example, we'll be getting a library from Github, meaning, you'll need `git` installed on your computer.
+`run`과 `build` 하는데 사용했던 `go` 명령어는 `get` 하위 명령을 가지고 있습니다. 이 명령은 서드 파티 라이브러리를 가져오는데 사용합니다. `go get`은 다양한 프로토콜을 지원하지만 이 예제에서는 Github 에서 라이브러리를 가져올 것입니다. 여러분의 컴퓨터에 `git`이 설치되어 있어야 한다는 의미 입니다. 
 
-Assuming you already have git installed, from a shell/command prompt, enter:
+이미 git이 설치되어 있다고 가정하고 쉘/명령창에서 다음과 같이 입력합니다:
 
 ```
 go get github.com/mattn/go-sqlite3
 ```
 
-`go get` fetches the remote files and stores them in your workspace. Go ahead and check your `$GOPATH/src`. In addition to the `shopping` project that we created, you'll now see a `github.com` folder. Within, you'll see a `mattn` folder which contains a `go-sqlite3` folder.
+`go get`은 작업 공간으로 원격파일을 가져와 저장합니다. `$GOAPTH/src`를 확인해 보세요. 우리가 만든 `shopping` 프로젝트에 추가적으로 `github.com` 폴더가 보일 것입니다. 폴더 안에 `go-sqlite3` 폴더를 포함하는 `mattn` 폴더가 보일 것입니다.
 
-We just talked about how to import packages that live in our workspace. To use our newly gotten `go-sqlite3` package, we'd import it like so:
+
+작업 공간으로 패키지를 가져오는 방법에 대해 이야기 했습니다. 새로 가져온 `go-sqllite3` 패지지를 사용하려면 다음과 같이 임포트 해야 합니다:
 
 ```go
 import (
@@ -1245,9 +1245,7 @@ import (
 )
 ```
 
-I know this looks like a URL but in reality, it'll simply import the `go-sqlite3` package which it expects to find in `$GOPATH/src/github.com/mattn/go-sqlite3`.
-
-### Dependency Management
+### 종속성 관리
 
 `go get` has a couple of other tricks up its sleeve. If we `go get` within a project, it'll scan all the files, looking for `imports` to third-party libraries and will download them. In a way, our own source code becomes a `Gemfile` or `package.json`.
 
