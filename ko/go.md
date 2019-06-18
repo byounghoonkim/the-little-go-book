@@ -1108,9 +1108,9 @@ func PriceCheck(itemId int) (float64, bool) {
 }
 ```
 
-It's tempting to think that importing `shopping/db` is somehow special because we're inside the `shopping` package/folder already. In reality, you're importing `$GOPATH/src/shopping/db`, which means you could just as easily import `test/db` so long as you had a package named `db` inside of your workspace's `src/test` folder.
+이미 `shopping` 패키지/폴더 안에 있기 때문에 `shopping/db`로 임포팅 하는 것이 특별하다고 생각하도록 부추깁니다.실제로는 `$GOPATH/src/shopping/db`를 임포트하고 있습니다. 이것은 `src/test` 폴더 안에 `db`라는 이름의 패키지를 가지고 있다면 쉽게 `test/db`도 쉽게 임포트할 수 있다는 뜻입니다. 
 
-If you're building a package, you don't need anything more than what we've seen. To build an executable, you still need a `main`. The way I prefer to do this is to create a subfolder called `main` inside of `shopping` with a file called `main.go` and the following content:
+패키지를 만드는 중이라면 지금까지 본 것 이상이 필요하지는 않습니다. 실행 파일을 만드려면 `main`이 필요합니다. 제거 선호하는 방법은 `shopping` 내에 `main`이라는 하위 폴더를 만들고 `main.go`을 생성하는 것입니다. 파일의 내용은 다음과 같습니다:
 
 ```go
 package main
@@ -1125,19 +1125,19 @@ func main() {
 }
 ```
 
-You can now run your code by going into your `shopping` project and typing:
+이제 `shopping` 프로젝트로 들어가 다음과 같이 타이핑 해서 코드를 실행할 수 있습니다:
 
 ```
 go run main/main.go
 ```
 
-### Cyclical Imports
+### 순환 임포트
 
-As you start writing more complex systems, you're bound to run into cyclical imports. This happens when package A imports package B but package B imports package A (either directly or indirectly through another package). This is something the compiler won't allow.
+좀더 복잡한 시스템을 작성하기 시작하면 순환 임포트 문제에 부딪히게 됩니다. 이는 패키지 A가 패키지 B를 임포트 하고 패키지 B가 패키지 A를 임포트할때 발생합니다(직접 또는 다른 패키지를 통해 간접으로). 이는 컴파일러가 허용하지 않습니다.
 
-Let's change our shopping structure to cause the error.
+이 오류가 발생하도록 shopping 구조를 변경해 봅시다.
 
-Move the `Item` definition from `shopping/db/db.go` into `shopping/pricecheck.go`. Your `pricecheck.go` file should now look like:
+`Item` 정의를 `shopping/db/db.go`에서 `shopping/pricecheck.go`로 옮깁니다. `pricecheck.go` 파일은 아래와 같은 모습일 겁니다:
 
 ```go
 package shopping
@@ -1159,7 +1159,7 @@ func PriceCheck(itemId int) (float64, bool) {
 }
 ```
 
-If you try to run the code, you'll get a couple of errors from `db/db.go` about `Item` being undefined. This makes sense. `Item` no longer exists in the `db` package; it's been moved to the shopping package. We need to change `shopping/db/db.go` to:
+코드를 실행하려고 하면 `db/db.go`에서 `Item`이 정의되지 않음에 대한 몇 개의 오류가 발생합니다. 오류가 맞습니다. `Item`은 더 이상 `db` 패키지에 없습니다. 그것은 shopping 패키지로 옮겨졌습니다. `shopping/db/db.go`를 다음과 같이 수정해야 합니다:
 
 ```go
 package db
@@ -1175,7 +1175,7 @@ func LoadItem(id int) *shopping.Item {
 }
 ```
 
-Now when you try to run the code, you'll get a dreaded *import cycle not allowed* error. We solve this by introducing another package which contains shared structures. Your directory structure should look like:
+이제 코드를 실행해 보면 무시무시한 *순환 임포트가 허용되지 않음* 오류가 발생합니다. 우리는 이 문제를 공유 구조체를 가진 다른 패키지를 만들어서 해결할 것입니다. 디렉토리 구조는 아래와 같아야 합니다:
 
 ```
 $GOPATH/src
@@ -1189,7 +1189,7 @@ $GOPATH/src
       main.go
 ```
 
-`pricecheck.go` will still import `shopping/db`, but `db.go` will now import `shopping/models` instead of `shopping`, thus breaking the cycle. Since we moved the shared `Item` structure to `shopping/models/item.go`, we need to change `shopping/db/db.go` to reference the `Item` structure from `models` package:
+`pricecheck.go`는 `shopping/db`를 여전히 임포트 하지만, `db.go`는 `shopping` 대신 `shopping/models`를 임포트할 것입니다. 이렇게 해서 순환을 끊습니다. 공유된 `Item` 구조체를 `shopping/models/item.go`로 옮겼기 때문에 `Item` 구조체를 `models` 패키지로부터 참조하기 위해 `shopping/db/db.go`를 수정해야 합니다:
 
 ```go
 package db
