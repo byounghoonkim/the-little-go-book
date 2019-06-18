@@ -19,7 +19,7 @@ Little Go Book은 Attribution-NonCommercial-ShareAlike 4.0 International license
 
 저는 새로운 언어를 배우는 데 있어 항상 애증의 관계를 유지 했습니다. 한편으로는 언어는 우리가 하는 일에 너무도 근본적이기 때문에 언어의 작은 변화로도 괄목할만한 영향을 미칩니다. 무언가를 클릭할 때 *아하*하는 순간은 당신이 프로그래밍 하는 방법에 대해 지속적으로 영향을 미칠 수 있고 다른 프로그래밍 언어에 대한 기대치를 재정의 할 수도 있습니다. 단점이라면 언어 디자인은 상당히 점진적입니다. 새로운 키워드, 타입 시스템, 코딩 스타일을 배우는 것은 새로운 라이브러리나 커뮤니티, 패러다임을 배우는 것 만큼 정당화 하기 어렵다는 것입니다. 배워야 할 다른 것들과 비교해 보면 새로운 언어를 배운다는 것은 종종 우리 시간을 투자할 가치가 없다고 느껴지기도 합니다.
 
-그렇지만, 우리는 앞으로 전진*해야* 합니다. 다시 말하지만 언어는 우리가 하는 일에 너무도 근본적인 역할을 하므로 우리는 점진적인 단계를 감수할 의지가 있*어야만* 합니다. 변화는 점진적이지만 광범위하며 생상성, 가독성, 성능, 테스트 가능성, 종속성 관리, 에러 처리, 문서화, 프로파일링, 커뮤니티, 표준 라이브러리 등에 영향을 미칩니다. 천개의 상처로 죽음을 말할 수 있는 긍정적인 방법이 있나요?
+그렇지만, 우리는 앞으로 전진*해야* 합니다. 다시 말하지만 언어는 우리가 하는 일에 너무도 근본적인 역할을 하므로 우리는 점진적인 단계를 감수할 의지가 있*어야만* 합니다. 변화는 점진적이지만 광범위하며 생상성, 가독성, 성능, 테스트 가능성, 의존성 관리, 에러 처리, 문서화, 프로파일링, 커뮤니티, 표준 라이브러리 등에 영향을 미칩니다. 천개의 상처로 죽음을 말할 수 있는 긍정적인 방법이 있나요?
 
 중요한 의문이 남습니다: **왜 Go 언어인가?** 저의 경우 두 가지 동기가 있습니다. 첫째는 Go언어는 비교적 심플한 표준 라이브러리를 가지는 단순한 언어라는 것입니다. Go 언어의 점직전 특성은 많은 점에서 지난 수십 년 간 각종 언어에 추가되어온 복잡성을 단순화했다는 것입니다. 또 다른 동기는 많은 개발자들에게 기존에 도구 집합(arsenal)을 보완한다는 이유 입니다.
 
@@ -27,7 +27,7 @@ Go는 원래 시스템(예를 들면 운영체제, 장비 드라이버)을 위�
 
 아마도 그런 필요성은 메시징, 캐싱, 계산량이 많은 데이터 분석, 명령줄 인터페이스, 로깅이나 모니터링 등의 작업일 수 있습니다. 어떤 레이블로 분류해야 할지 모르겠지만, 제 경력이 쌓여갈 수록 복잡성이 지속적으로 증가하는 하고 수만 준의 동시성을 지원하는 사용자 정의 인프라 타입의 시스템에 대한 필요성이 확실하게 커지고 있습니다. 이런 시스템들 루비나 파이썬 또는 다른 것들(많은 이들이 그렇게 하듯이)로 구축*할 수는* 있지만 (Go로 구축한다면)이런 유형의 시스템들은 강 타입 시스템과 성능 부분에서 잇점을 얻을 수 있습니다. 마찬가지로 (많은 이들이 그러는 것처럼) 웹사이트를 구축하는데 Go를 사용할 수도 있습니다만 많은 이들이 그런 시스템을 위해서는 루비나 노드의 표현력을 더 선호합니다.
 
-Go는 탁월한 분야가 있습니다. 예를 들면, 컴파일 된 Go 프로그램은 동작 시 종속성을 가지지 않습니다. 사용자가 루비나 JVM을 설치했는지 설치했다면 어떤 버전인지 등을 걱정할 필요가 없습니다. 이런 이유로 Go는 명령줄 인터페이스 프로그램과 배포해야 하는 유틸리티 프로그램 타입(예를 들면, 로그 수집기)을 위한 언어로 점차 대중화 되고 있습니다.
+Go는 탁월한 분야가 있습니다. 예를 들면, 컴파일 된 Go 프로그램은 동작 시 의존성을 가지지 않습니다. 사용자가 루비나 JVM을 설치했는지 설치했다면 어떤 버전인지 등을 걱정할 필요가 없습니다. 이런 이유로 Go는 명령줄 인터페이스 프로그램과 배포해야 하는 유틸리티 프로그램 타입(예를 들면, 로그 수집기)을 위한 언어로 점차 대중화 되고 있습니다.
 
 Go를 배우는 것은 시간을 효율적으로 사용하는 것임이 분명합니다. Go를 배우거나 마스터링 하는데 오랜 시간을 들일 필요가 없으며, 노력을 통해 실용적인 것을 얻을 수 있을 겁니다.
 
@@ -98,7 +98,7 @@ Go는 C 문법과 유사하며 가비지 수집 기능이 있는 컴파일되는
 
 컴파일 되는 시간이 오래 걸리 수도 있기 때문에 컴파일되는 언어로 작업하는 것은 즐겁지 않습니다. 컴파일되기를 몇 분 또는 몇 시간 기다려야 한다면 개발 주기를 빠르게 반복하기 어렵습니다. 컴파일 속도는 Go의 주요 디자인 목표 중 하나 입니다. 인터프리터 언어를 사용해 빠른 피드백 주기를 사용하는 대형 프로젝트를 개발하는 사람에게는 희소식입니다.
 
-컴파일되는 언어는 비교적 더 빨리 실행되고 그 실행 파일은 추가적인 종속성이 없이 동작할 수 있습니다.(적어도 C, C++, Go 처럼 직접 어셈플리어로 컴파일되는 언어의 경우에는)
+컴파일되는 언어는 비교적 더 빨리 실행되고 그 실행 파일은 추가적인 의존성이 없이 동작할 수 있습니다.(적어도 C, C++, Go 처럼 직접 어셈플리어로 컴파일되는 언어의 경우에는)
 
 
 ## 정적 타이핑
@@ -1205,7 +1205,7 @@ func LoadItem(id int) *models.Item {
 }
 ```
 
-가끔 `models` 이상의 공유가 필요할 때가 있기 때문에 `utilities`와 같은 폴더가 있을 수도 있습니다. 이런 공유 패키지에 대한 중요한 규칙은 다른 하위 패키지나 `shopping` 패키지에서 아무것도 임포트 하지 않아야 한다는 것입니다. 몇몇 섹션에서 이러한 유형의 종속성을 해결할 수 있는 인터페이스를 살볼 것입니다.
+가끔 `models` 이상의 공유가 필요할 때가 있기 때문에 `utilities`와 같은 폴더가 있을 수도 있습니다. 이런 공유 패키지에 대한 중요한 규칙은 다른 하위 패키지나 `shopping` 패키지에서 아무것도 임포트 하지 않아야 한다는 것입니다. 몇몇 섹션에서 이러한 유형의 의존성을 해결할 수 있는 인터페이스를 살볼 것입니다.
 
 ## 가시성
 
@@ -1245,19 +1245,20 @@ import (
 )
 ```
 
-### 종속성 관리
+### 의존성 관리
 
-`go get` has a couple of other tricks up its sleeve. If we `go get` within a project, it'll scan all the files, looking for `imports` to third-party libraries and will download them. In a way, our own source code becomes a `Gemfile` or `package.json`.
+`go get`은 몇 가지 트릭이 있습니다. 프로젝트 내에서 `go get`하면 모든 파일을 검사해 서드 파티 라이브러리의 `import`를 찾을 것이고 그것들을 다운로드 할 것입니다. 어떤 면에서 소스코드 자체가 `Gemfile` 이나 `package.json`이 됩니다.
 
-If you call `go get -u` it'll update the packages (or you can update a specific package via `go get -u FULL_PACKAGE_NAME`).
+`go get -u`라고 호출하면 패키지를 업데이트 할 것 입니다(또는 `get get -u FULL_PACKAGE_NAME`을 통해 특정 패키지를 업데이트 할 수도 있습니다).
 
-Eventually, you might find `go get` inadequate. For one thing, there's no way to specify a revision, it always points to the master/head/trunk/default. This is an even larger problem if you have two projects needing different versions of the same library.
+결국, 여러분은 `go get`이 부족한 면이 있다는 것을 발견할 지도 모릅니다. 그중 한가지는 리비전을 지정할 수 없다는 것입니다. 언제나 master/head/trunk/default 만을 가리킵니다. 이는 두 프로젝트가 다른 버전의 동일한 라이브러리를 사용하게 되면 큰 문제됩니다.
 
-To solve this, you can use a third-party dependency management tool. They are still young, but two promising ones are [goop](https://github.com/nitrous-io/goop) and [godep](https://github.com/tools/godep). A more complete list is available at the [go-wiki](https://code.google.com/p/go-wiki/wiki/PackageManagementTools).
+이를 해결하기 위해 서드 파티 의존성 관리 도구를 사용할 수 있습니다. 그 도구들은 아직 성숙하지 않았지만 그중 [goop](https://github.com/nitrous-io/goop)와 [godep](https://github.com/tools/godep) 두 가지가 유망합니다. 더 자세한 정보는 [go-wiki](https://code.google.com/p/go-wiki/wiki/PackageManagementTools)에서 볼 수 있습니다.
 
-## Interfaces
+## 인터페이스
 
-Interfaces are types that define a contract but not an implementation. Here's an example:
+
+인터페이스는 계약은 정의하지만 구현은 없는 타입입니다. 여기 예제가 있습니다:
 
 ```go
 type Logger interface {
@@ -1265,17 +1266,16 @@ type Logger interface {
 }
 ```
 
-You might be wondering what purpose this could possibly serve. Interfaces help decouple your code from specific implementations. For example, we might have various types of loggers:
+아마도 이것이 어떤 목적을 위해 사용될 수 있을지 궁금해 할 것입니다. 인터페이스는 코드를 특정 구현으로 부터 분리(decouple)하는데 도움이 됩니다. 예를 들면, 다양한 타입의 로거들이 있을 수 있습니다:
 
 ```go
 type SqlLogger struct { ... }
 type ConsoleLogger struct { ... }
 type FileLogger struct { ... }
 ```
+그러나 구체적인 구현보다는 인터페이스를 상대로 프로그래밍하면 코드에 아무런 영향 없이 우리가 사용하는 로거를 쉽게 (테스트하고) 변경할 수 있습니다.
 
-Yet by programming against the interface, rather than these concrete implementations, we can easily change (and test) which we use without any impact to our code.
-
-How would you use one? Just like any other type, it could be a structure's field:
+어떻게 사용할까요? 다른 타입과 마찬가지로 구조체의 필드일 수도 있습니다:
 
 ```go
 type Server struct {
@@ -1283,7 +1283,7 @@ type Server struct {
 }
 ```
 
-or a function parameter (or return value):
+또는 함수의 파라미터일수도 있습니다(또는 반환 값이거나):
 
 ```go
 func process(logger Logger) {
@@ -1291,7 +1291,7 @@ func process(logger Logger) {
 }
 ```
 
-In a language like C# or Java, we have to be explicit when a class implements an interface:
+C#이나 자바 같은 언어에서는 클래스를 구현할 때 인터페이스를 명시해야 합니다:
 
 ```go
 public class ConsoleLogger : Logger {
@@ -1301,7 +1301,7 @@ public class ConsoleLogger : Logger {
 }
 ```
 
-In Go, this happens implicitly. If your structure has a function name `Log` with a `string` parameter and no return value, then it can be used as a `Logger`. This cuts down on the verboseness of using interfaces:
+Go에서는 암묵적으로 이뤄집니다. 구조체가 `string`파라미터를 받고 반환값이 없는 `Log`라는 함수를 가진다면 이 구조체는 `Logger`로 사용될 수 있습니다. 이것은 인터페이스의 장황함을 줄여 줍니다.
 
 ```go
 type ConsoleLogger struct {}
@@ -1310,19 +1310,20 @@ func (l ConsoleLogger) Log(message string) {
 }
 ```
 
-It also tends to promote small and focused interfaces. The standard library is full of interfaces. The `io` package has a handful of popular ones such as `io.Reader`, `io.Writer`, and `io.Closer`. If you write a function that expects a parameter that you'll only be calling `Close()` on, you absolutely should accept an `io.Closer` rather than whatever concrete type you're using.
+또한 이는 작고 집중된 인터페이스를 장려하는 경향이 있습니다. 표준 라이브러리는 인터페이스로 가득 차 있습니다. `io` 패키지는 `io.Reader`, `io.Writer` 그리고 `io.Closer` 와 같은 일반적이고 유용한 인터페이스를 많이 가지고 있습니다. `Close()`만 호출하는 파라미터를 기대하는 함수를 작성한다면 사용하고 있는 구체적인 타입보다는 `io.Closer`를 받아들어야 합니다.
 
-Interfaces can also participate in composition. And, interfaces themselves can be composed of other interfaces. For example, `io.ReadCloser` is an interface composed of the `io.Reader` interface as well as the `io.Closer` interface.
+인터페이스는 또한 구성에 참여할 수도 있습니다. 그리고 인터페이스 자체는 다른 인터페이스와 구성 될 수도 있습니다. 예를 들면, `io.ReadCloser`는 `io.Reader`와 `io.Closer`로 구성된 인터페이스 입니다.
 
+마지막으로 인터페이스는 일반적으로 순환 임포트를 피하기 위해 사용됩니다. 구현부가 없기 때문에 의존성이 제한적입니다.
 Finally, interfaces are commonly used to avoid cyclical imports. Since they don't have implementations, they'll have limited dependencies.
 
-## Before You Continue
+## 계속 진행하기 전에
 
-Ultimately, how you structure your code around Go's workspace is something that you'll only feel comfortable with after you've written a couple of non-trivial projects. What's most important for you to remember is the tight relationship between package names and your directory structure (not just within a project, but within the entire workspace).
+궁극적으로 Go 작업 공간에 코드를 구조화하는 방법은 몇몇 중요 프로젝트를 작성하고 나서야 편안하게 느껴질 것입니다. 중요한 점은 (단지 프로젝트 뿐만 아니라 작업 공간 전체에서) 패키지 이름과 디렉토리 구조는 긴밀한 관계가 있다는 것을 기억하는 것 입니다.
 
-The way Go handles visibility of types is straightforward and effective. It's also consistent. There are a few things we haven't looked at, such as constants and global variables but rest assured, their visibility is determined by the same naming rule.
+Go가 가시성을 처리하는 방법은 간단하고 효과적입니다. 또한 일관적입니다. 상수와 전역 변수 같은 살펴보지 못한 몇 가지 것들이 있지만 가시성은 동일한 이름 규칙으로 결정된다고 장담할 수 있습니다.
 
-Finally, if you're new to interfaces, it might take some time before you get a feel for them. However, the first time you see a function that expects something like `io.Reader`, you'll find yourself thanking the author for not demanding more than he or she needed.
+마지막으로, 여러분이 인터페이스를 처음 접하신다면 느낌이 올 때까지 약간의 시간이 걸리 수 있습니다. 그러나 `io.Reader` 같은 것들을 기대하는 함수를 처음 되게 되는 시점에 저자가 필요로 하는 것보다 더 많은 것을 요구 하지 않는다는 것에 저자에게 감사하게 될 것입니다.
 
 # Chapter 5 - Tidbits
 
