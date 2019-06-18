@@ -1057,21 +1057,22 @@ Go에서 배열과 맵은 다른 언어와 매우 유사하게 동작합니다. 
 
 우리가 다루지 않은 엣지 케이스(edge case)가 있습니다만 그 케이스에 빠질 가능성은 낮습니다. 그리고 그런 케이스에 빠져도 여기서 익힌 내용으로 무슨 일이 일어나고 있는지 이해하게 될 것입니다.
 
-# Chapter 4 - Code Organization and Interfaces
+# 4장 - 코드 구성 및 인터페이스
 
-It's now time to look at how to organize our code.
+이제 코드를 구성하는 방법을 살펴 보겠습니다.
 
-## Packages
+## 패키지
 
-To keep more complicated libraries and systems organized, we need to learn about packages. In Go, package names follow the directory structure of your Go workspace. If we were building a shopping system, we'd probably start with a package name "shopping" and put our source files in `$GOPATH/src/shopping/`.
+더 복잡한 라이브러리와 시스템을 구성하려면 패키지에 대해 알아야 합니다. Go에서는 패키지 이름은 Go 작업 공간의 디렉토리 구조에 따릅니다. 쇼핑 시스템을 구축하고 있다면, 패키지 이름을 "shopping"이라고 하고 소스를 `$GOPATH/src/shopping/` 에 넣을 것입니다.
 
-We don't want to put everything inside this folder though. For example, maybe we want to isolate some database logic inside its own folder. To achieve this, we create a subfolder at `$GOPATH/src/shopping/db`. The package name of the files within this subfolder is simply `db`, but to access it from another package, including the `shopping` package, we need to import `shopping/db`.
+이 폴더에 모든 것을 넣고 싶지는 않습니다. 예를 들면 데이터베이스 로직은 별도 자체 폴더에 분리하고자 할 것입니다. 이렇게 하기 위해 하위 폴더 `$GOPATH/src/shopping/db`를 만듭니다. 이 하위 폴더 내에 파일의 패키지 이름은 단순히 `db`이지만 다른 패키지에서 여기에 접근하기 위해서는 `shopping` 패키지를 포함해 `shopping/db`를 임포트 해야 합니다.
 
-In other words, when you name a package, via the `package` keyword, you provide a single value, not a complete hierarchy (e.g., "shopping" or "db"). When you import a package, you specify the complete path.
+즉, `package` 키워드를 통해 패키지 이름을 지정할 때, 전체 계층이 아닌 단일 값을 지정해야 합니다(예, "shopping" 또는 "db"). 패키지를 임포트할 때는 완전한 경로를 지정합니다.
 
-Let's try it. Inside your Go workspace's `src` folder (which we set up in Getting Started of the Introduction), create a new folder called `shopping` and a subfolder within it called `db`.
+실습을 해 봅시다. Go 작업 공간의 `src` 폴더(앞의 소개의 시작 부분에서 설정한) 내부에 하위에 `db`를 가진 `shopping`이라는 새 폴더를 만듭니다.
 
-Inside of `shopping/db`, create a file called `db.go` and add the following code:
+
+`shopping/db` 내부에 , `db.go` 라는 파일을 만들고 다음 코드를 추가합니다:
 
 ```go
 package db
@@ -1087,9 +1088,9 @@ func LoadItem(id int) *Item {
 }
 ```
 
-Notice that the name of the package is the same as the name of the folder. Also, obviously, we aren't actually accessing the database. We're just using this as an example to show how to organize code.
+패키지 이름은 폴더 이름과 동일함에 주의하세요. 또한 실제로 데이터베이스에 접근하지 않습니다. 코드가 어떻게 구성되는지 보여주기 위한 예제로만 이 파일을 사용하고 있습니다.
 
-Now, create a file called `pricecheck.go` inside of the main `shopping` folder. Its content is:
+이제 메인 `shopping` 폴더 내에 `pricecheck.go`라는 파일을 만드세요. 그 파일의 내용은:
 
 ```go
 package shopping
