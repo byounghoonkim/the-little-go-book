@@ -754,7 +754,7 @@ for index, value := range scores {
 
 ## 슬라이스
 
-Go에서는 배열을 직접 사용하는 경우는 거의 없습니다. 대신 슬라이스를 사용합니다. 슬라이스는 배열의 일부를 감싸고 나타내는 가벼운 구조체입니다. 슬라이스를 생성하는데는 몇 가지 방법이 있는데, 나중에 사용할 때 살보 볼 것입니다. 첫 번째는 배열을 만드는 방법의 약간 변형입니다: 
+Go에서는 배열을 직접 사용하는 경우는 거의 없습니다. 대신 슬라이스를 사용합니다. 슬라이스는 배열의 일부를 감싸고 나타내는 가벼운 구조체입니다. 슬라이스를 생성하는데는 몇 가지 방법이 있는데, 나중에 사용할 때 살보 볼 것입니다. 첫 번째는 배열을 만드는 방법의 약간 변형입니다:
 
 ```go
 scores := []int{1,4,293,4,9}
@@ -793,7 +793,7 @@ func main() {
 }
 ```
 
-But that changes the intent of our original code. Appending to a slice of length 0 will set the first element. For whatever reason, our crashing code wanted to set the element at index 7. To do this, we can re-slice our slice:
+그러나 저 코드는 원본 코드의 의도와 다릅니다. 길이가 0인 슬라이스에 추가(append)하면 첫 번째 요소에 설정될 것입니다. 어떤 이유로 크래시가 발생한 원본 코드는 인덱스가 7인 요소에 설정하려고 했습니다. 이렇게 하기 위해 슬라이스를 다시 슬라이스로 만들면 가능합니다:
 
 ```go
 func main() {
@@ -804,9 +804,9 @@ func main() {
 }
 ```
 
-How large can we resize a slice? Up to its capacity which, in this case, is 10. You might be thinking *this doesn't actually solve the fixed-length issue of arrays.* It turns out that `append` is pretty special. If the underlying array is full, it will create a new larger array and copy the values over (this is exactly how dynamic arrays work in PHP, Python, Ruby, JavaScript, ...). This is why, in the example above that used `append`, we had to re-assign the value returned by `append` to our `scores` variable: `append` might have created a new value if the original had no more space.
+슬라이스 크기를 얼마다 크게 조정할 수 있을까요? 슬라이스의 용량 만큼 크게 할 수 있고 이 코드의 경우에는 10입니다. *이건 배열의 고정된 길이 이슈를 실제로 해결하지 못 하는 것 아닌가*라고 생각할 수도 있습니다. `append`는 특별하다고 할 수 있습니다. `append`는 내부 배열이 가득 차면 새로운 더 큰 배열을 할당하고 값들을 거기 복사 합니다(이는 PHP, 파이썬, 루비, 자바스크립트에서 동적 배열이 동작하는 방식과 정확히 동일합니다). 위의 예제에서 `append`를 사용할 때  `append`의 변환값을 `scores` 변수에 다시 할당하는 이유가 이것입니다.  `append`는 원본이 더 이상 공간이 없으면 새로운 값(슬라이스)을 생성할 수도 있습니다
 
-If I told you that Go grew arrays with a 2x algorithm, can you guess what the following will output?
+Go가 2x 알고리즘으로 배열을 증가시킨다면 아래 코드는 어떤 결과를 출력할지 예측할 수 있나요?
 
 ```go
 func main() {
@@ -827,9 +827,9 @@ func main() {
 }
 ```
 
-The initial capacity of `scores` is 5. In order to hold 25 values, it'll have to be expanded 3 times with a capacity of 10, 20 and finally 40.
+`scores` 초기 용량은 5입니다. 25개의 값을 담기 위해 3번의 용량 확장이 발생해야 하며 그 용량값은 10, 20, 그리고 마지막으로 40입니다.
 
-As a final example, consider:
+마지막 예를 보시면:
 
 ```go
 func main() {
@@ -839,9 +839,9 @@ func main() {
 }
 ```
 
-Here, the output is going to be `[0, 0, 0, 0, 0, 9332]`. Maybe you thought it would be `[9332, 0, 0, 0, 0]`? To a human, that might seem logical. To a compiler, you're telling it to append a value to a slice that already holds 5 values.
+여기는 `[0, 0, 0, 0, 0, 9332]`이 출력될 것입니다. 아마도 `[9332, 0, 0, 0, 0]`라고 생각했나요? 사람에게는 그것이 논리적으로 보일수도 있습니다. 컴파일러에게는 이미 5개의 값을 저장하고 있는 슬라이스에 값을 추가하라는 의미 입니다.
 
-Ultimately, there are four common ways to initialize a slice:
+궁극적으로 슬라이스를 초기화는 데는 네 가지 일반적인 방법이 있습니다.
 
 ```go
 names := []string{"leto", "jessica", "paul"}
@@ -850,9 +850,9 @@ var names []string
 scores := make([]int, 0, 20)
 ```
 
-When do you use which? The first one shouldn't need much of an explanation. You use this when you know the values that you want in the array ahead of time.
+언제 어느 것을 사용해야 할까요? 첫 번째는 많은 설명이 필요하지 않습니다. 이것은 미리 배열에 저장할 값을 알고 있을 때 사용합니다.
 
-The second one is useful when you'll be writing into specific indexes of a slice. For example:
+두 번째는 슬라이스의 특정 인덱스에 값을 쓸 때 유용합니다. 예를 들면:
 
 ```go
 func extractPowers(saiyans []*Saiyan) []int {
@@ -864,11 +864,11 @@ func extractPowers(saiyans []*Saiyan) []int {
 }
 ```
 
-The third version is a nil slice and is used in conjunction with `append`, when the number of elements is unknown.
+세 번째는 요소의 수가 알려지지 않았을 때 nil 슬라이스로 할당하고 `append`와 함께 사용합니다.
 
-The last version lets us specify an initial capacity; useful if we have a general idea of how many elements we'll need.
+마지막 버전은 초기 용량을 지정할 수 있습니다. 얼마나 많은 요소가 필요한지에 대해 알고 있다면 유용합니다.
 
-Even when you know the size, `append` can be used. It's largely a matter of preference:
+크기를 아는 경우에라도 `append`를 사용할 수 있습니다. 그것은 선호의 문제입니다:
 
 ```go
 func extractPowers(saiyans []*Saiyan) []int {
@@ -880,7 +880,7 @@ func extractPowers(saiyans []*Saiyan) []int {
 }
 ```
 
-Slices as wrappers to arrays is a powerful concept. Many languages have the concept of slicing an array. Both JavaScript and Ruby arrays have a `slice` method. You can also get a slice in Ruby by using `[START..END]` or in Python via `[START:END]`. However, in these languages, a slice is actually a new array with the values of the original copied over. If we take Ruby, what's the output of the following?
+배열 랩퍼로서의 슬라이스는 강력한 개념입니다. 많은 언어에 배열을 분할한다는 개념이 있습니다. 자바스크립트와 루비 둘다 배열에 `slice` 메소드가 있습니다. 루비에서 `[START..END]`를 파이선에서는 `[START:END]`를 이용해 슬라이스를 구할 수 있습니다. 그러나 이런 언어들에서는 슬라이스는 원본의 복사한 값을 가진 새로운 배열입니다. 루비를 사용한다면 아래와 같은 코드는 무엇이 출력될까요?
 
 ```ruby
 scores = [1,2,3,4,5]
@@ -889,7 +889,7 @@ slice[0] = 999
 puts scores
 ```
 
-The answer is `[1, 2, 3, 4, 5]`. That's because `slice` is a completely new array with copies of values. Now, consider the Go equivalent:
+정답은 `[1, 2, 3, 4, 5]`입니다. `slice`가 값을 복사한 완전히 새로운 배열을 이기 때문입니다. 이제 Go의 동일한 경우를 봅시다:
 
 ```go
 scores := []int{1,2,3,4,5}
@@ -898,16 +898,16 @@ slice[0] = 999
 fmt.Println(scores)
 ```
 
-The output is `[1, 2, 999, 4, 5]`.
+결과는 `[1, 2, 999, 4, 5]` 입니다.
 
-This changes how you code. For example, a number of functions take a position parameter. In JavaScript, if we want to find the first space in a string (yes, slices work on strings too!) after the first five characters, we'd write:
+이것은 코딩 방법을 바꿉니다. 예를 들면, 많은 함수들이 파라미터의 위치를 사용합니다. 자바스크립트에서는 문자열에서 처음 다섯 글자 이후에 첫 번째 공백을 찾으려면 (네, 문자열에서도 슬라이스가 동작합니다!) 다음과 같이 작성합니다:
 
 ```javascript
 haystack = "the spice must flow";
 console.log(haystack.indexOf(" ", 5));
 ```
 
-In Go, we leverage slices:
+Go에서는 슬라이스를 활용합니다:
 
 ```go
 strings.Index(haystack[5:], " ")
