@@ -1467,11 +1467,11 @@ if err := process(); err != nil {
 
 흥미롭게도 if 문 외부에서는 그 값을 사용할 수 없지만 `else if` 또는 `else` 내부에서는 사용할 수 있습니다.
 
-## Empty Interface and Conversions
+## 빈 인터페이스와 변환
 
-In most object-oriented languages, a built-in base class, often named `object`, is the superclass for all other classes. Go, having no inheritance, doesn't have such a superclass. What it does have is an empty interface with no methods: `interface{}`. Since every type implements all 0 of the empty interface's methods, and since interfaces are implicitly implemented, every type fulfills the contract of the empty interface.
+대부분의 객체 지향 언어에서는 보통 이름이 `object`인 내장 기본 클래스가 다른 모든 클래스의 수퍼 클래스입니다. 상속이 없는 Go는 그런 수퍼 클래스가 없습니다. Go가 가지고 있는 것은 `interface{}`라는 메소드가 없는 빈 인터페이스입니다. 모든 타입은 빈 인터페이스의 메소드 0개 모두를 구현하고 있고 인터페이스는 암묵적으로 구현되므로 모든 타입은 빈 인터페이스의 조건(contract)을 충족합니다.
 
- If we wanted to, we could write an `add` function with the following signature:
+원한다면 다음 시그니처로 `add` 함수를 작성할 수 있습니다:
 
 ```go
 func add(a interface{}, b interface{}) interface{} {
@@ -1479,15 +1479,15 @@ func add(a interface{}, b interface{}) interface{} {
 }
 ```
 
-To convert an interface variable to an explicit type, you use `.(TYPE)`:
+인터페이스 변수를 명시적인 타입으로 변환하기 위해서 `.(TYPE)`을 사용합니다:
 
 ```go
 return a.(int) + b.(int)
 ```
 
-Note that if the underlying type is not `int`, the above will result in an error.
+기반 타입이 `int`가 아닌 경우이면 위 코드는 오류가 발생합니다.
 
-You also have access to a powerful type switch:
+강력한 타입 스위치를 사용할 수도 있습니다:
 
 ```go
 switch a.(type) {
@@ -1500,7 +1500,7 @@ switch a.(type) {
 }
 ```
 
-You'll see and probably use the empty interface more than you might first expect. Admittedly, it won't result in clean code. Converting values back and forth is ugly and dangerous but sometimes, in a static language, it's the only choice.
+빈 인터페이스는 생각했던 것 보다 더 많이 사용하게 된다는 것을 알게 될 것입니다. 틀림없이, 그것은 코드를 깨끗하게 만들지는 않습니다. 값을 앞 뒤로 변환하는 것은 보기에도 좋지 않고 위험하기도 합니다. 그러나 때로는 정적 언어에서 유일한 선택지 입니다.
 
 ## Strings and Byte Arrays
 
