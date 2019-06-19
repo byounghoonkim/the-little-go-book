@@ -1635,13 +1635,13 @@ func incr() {
 }
 ```
 
-어떻게 출력 될 것 같습니까?
+무엇이 출력 될까요?
 
-If you think the output is `1, 2, ... 20` you're both right and wrong. It's true that if you run the above code, you'll sometimes get that output. However, the reality is that the behavior is undefined. Why? Because we potentially have multiple (two in this case) goroutines writing to the same variable, `counter`, at the same time. Or, just as bad, one goroutine would be reading `counter` while another writes to it.
+`1, 2, ... 20` 라고 출력될 것이라 생각했다면 맞기도 하고 틀리기도 한 것입니다. 위 코드를 실행하면 가끔 그런 실행 결과를 얻는 경우가 종종 있습니다. 그러나 현실은 그 행동은 정의되어 있지 않다 입니다. 왜냐하면 동일한 변수 `counter`에 동시에 여러 (이 경우에는 둘) 고루틴이 쓰기 때문입니다. 또는, 한개의 고루틴이 값을 쓰는 동안 다른 고루틴이 값을 읽을 것입니다.
 
-Is that really a danger? Yes, absolutely. `counter++` might seem like a simple line of code, but it actually gets broken down into multiple assembly statements -- the exact nature is dependent on the platform that you're running. If you run this example, you'll see that very often the numbers are printed in a weird order, and/or numbers are duplicated/missing. There are worse possibilities too, such as system crashes or accessing an arbitrary piece of data and incrementing it!
+그게 정말 위험할까요? 네, 확실히요. `counter++`는 간단한 한줄 코드 처럼 보이지만 실제로는 여러 개의 어셈블리 문으로 나누어 집니다. 정확한 특성은 코드가 실행되는 플랫폼에 종속적입니다. 이 예제를 실행하면 자주 숫자가 이상한 순서대로 출력되거나 또는 중복되거나 빠지는 경우를 보게 될 것입니다. 시스템이 크래시 되거나 임의의 데이터에 접근해 그것을 증가시키는 등의 잠재적으로 더 나쁠수도 있습니다. 
 
-The only concurrent thing you can safely do to a variable is to read from it. You can have as many readers as you want, but writes need to be synchronized. There are various ways to do this, including using some truly atomic operations that rely on special CPU instructions. However, the most common approach is to use a mutex:
+변수에 안전하게 할 수 있는 유일한 동시 작업은 변수로 부터 읽는 동작 뿐입니다. 원하는 만큼 리더(reader)를 만들 수 있지만 쓰기는 동기화 되어야 합니다. CPU 특수 명령에 의존하는 원자 연산을 사용하는 것을 포함해 동기화 하는 방법은 여러 가지가 있습니다. 그러나 가장 일반적인 접근법은 뮤텍스를 이용하는 것입니다: 
 
 ```go
 package main
@@ -1672,7 +1672,7 @@ func incr() {
 }
 ```
 
-A mutex serializes access to the code under lock. The reason we simply define our lock as `lock sync.Mutex` is because the default value of a `sync.Mutex` is unlocked.
+뮤텍스는 락(lock)의 내부에 있는 코드에 대한 접근을 직렬화 합니다. 단순히 `lock sync.Mutex`로 락을 정의하는 이유는 `sync.Mutex`의 기본값이 언락(unlock)이기 때문입니다.
 
 Seems simple enough? The example above is deceptive. There's a whole class of serious bugs that can arise when doing concurrent programming. First of all, it isn't always so obvious what code needs to be protected. While it might be tempting to use coarse locks (locks that cover a large amount of code), that undermines the very reason we're doing concurrent programming in the first place. We generally want fine locks; else, we end up with a ten-lane highway that suddenly turns into a one-lane road.
 
