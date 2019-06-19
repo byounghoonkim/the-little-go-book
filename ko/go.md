@@ -1108,7 +1108,7 @@ func PriceCheck(itemId int) (float64, bool) {
 }
 ```
 
-이미 `shopping` 패키지/폴더 안에 있기 때문에 `shopping/db`로 임포팅 하는 것이 특별하다고 생각하도록 부추깁니다.실제로는 `$GOPATH/src/shopping/db`를 임포트하고 있습니다. 이것은 `src/test` 폴더 안에 `db`라는 이름의 패키지를 가지고 있다면 쉽게 `test/db`도 쉽게 임포트할 수 있다는 뜻입니다. 
+이미 `shopping` 패키지/폴더 안에 있기 때문에 `shopping/db`로 임포팅 하는 것이 특별하다고 생각하도록 부추깁니다.실제로는 `$GOPATH/src/shopping/db`를 임포트하고 있습니다. 이것은 `src/test` 폴더 안에 `db`라는 이름의 패키지를 가지고 있다면 쉽게 `test/db`도 쉽게 임포트할 수 있다는 뜻입니다.
 
 패키지를 만드는 중이라면 지금까지 본 것 이상이 필요하지는 않습니다. 실행 파일을 만드려면 `main`이 필요합니다. 제거 선호하는 방법은 `shopping` 내에 `main`이라는 하위 폴더를 만들고 `main.go`을 생성하는 것입니다. 파일의 내용은 다음과 같습니다:
 
@@ -1226,7 +1226,7 @@ func NewItem() *Item {
 
 ### 패키지 관리
 
-`run`과 `build` 하는데 사용했던 `go` 명령어는 `get` 하위 명령을 가지고 있습니다. 이 명령은 서드 파티 라이브러리를 가져오는데 사용합니다. `go get`은 다양한 프로토콜을 지원하지만 이 예제에서는 Github 에서 라이브러리를 가져올 것입니다. 여러분의 컴퓨터에 `git`이 설치되어 있어야 한다는 의미 입니다. 
+`run`과 `build` 하는데 사용했던 `go` 명령어는 `get` 하위 명령을 가지고 있습니다. 이 명령은 서드 파티 라이브러리를 가져오는데 사용합니다. `go get`은 다양한 프로토콜을 지원하지만 이 예제에서는 Github 에서 라이브러리를 가져올 것입니다. 여러분의 컴퓨터에 `git`이 설치되어 있어야 한다는 의미 입니다.
 
 이미 git이 설치되어 있다고 가정하고 쉘/명령창에서 다음과 같이 입력합니다:
 
@@ -1325,13 +1325,13 @@ Go가 가시성을 처리하는 방법은 간단하고 효과적입니다. 또�
 
 마지막으로, 여러분이 인터페이스를 처음 접하신다면 느낌이 올 때까지 약간의 시간이 걸리 수 있습니다. 그러나 `io.Reader` 같은 것들을 기대하는 함수를 처음 되게 되는 시점에 저자가 필요로 하는 것보다 더 많은 것을 요구 하지 않는다는 것에 저자에게 감사하게 될 것입니다.
 
-# Chapter 5 - Tidbits
+# 5장 - 기타 주제
 
-In this chapter, we'll talk about a miscellany of Go's feature which didn't quite fit anywhere else.
+이 장에서는 다른 곳는 잘 맞지 않는 Go의 기능들에 대해 이야기 하겠습니다.
 
-## Error Handling
+## 오류 처리(Error Handling)
 
-Go's preferred way to deal with errors is through return values, not exceptions. Consider the `strconv.Atoi` function which takes a string and tries to convert it to an integer:
+Go는 예외가 아닌 반환 값을 통한 오류로 다루는 것을 선호합니다. 문자열을 받아 정수로 변환을 시도하는 `strconv.Atoi` 함수를 보면:
 
 ```go
 package main
@@ -1356,7 +1356,7 @@ func main() {
 }
 ```
 
-You can create your own error type; the only requirement is that it fulfills the contract of the built-in `error` interface, which is:
+자신 만의 오류 타입을 만들 수도 있습니다. 유일한 요구사항은 내장된 `error`인터페이스를 준수해야 한다는 것 입니다. 그 인터페이스는 다음과 같습니다:
 
 ```go
 type error interface {
@@ -1364,7 +1364,7 @@ type error interface {
 }
 ```
 
-More commonly, we can create our own errors by importing the `errors` package and using it in the `New` function:
+보다 일반적으로, `errors` 패키지를 임포트 하고 `New`함수를 이용해 우리 만의 오류를 생성할 수도 있습니다:
 
 ```go
 import (
@@ -1381,13 +1381,13 @@ func process(count int) error {
 }
 ```
 
-There's a common pattern in Go's standard library of using error variables. For example, the `io` package has an `EOF` variable which is defined as:
+Go 표준 라이브러리에는 오류 변수를 사용하는 공통된 패턴이 있습니다. 예를 들면, `io` 패키지는 다음과 같이 선언된 `EOF` 변수를 가지고 있습니다:
 
 ```go
 var EOF = errors.New("EOF")
 ```
 
-This is a package variable (it's defined outside of a function) which is publicly accessible (upper-case first letter). Various functions can return this error, say when we're reading from a file or STDIN. If it makes contextual sense, you should use this error, too. As consumers, we can use this singleton:
+이 변수는 (첫 글자가 대문자라) 공개적으로 접근할 수 있는 (함수 외부에서 정의된) 패키지 변수 입니다. 파일이나 STDIN으로 부터 읽기 동작을 수행할 때 다양한 함수들이 이 오류를 반환할 수 있습니다. 문맥 상 가능하다면 오류를 사용해야 합니다. 사용 측면에서는 다음과 같이 이 오류 변수의 싱글톤을 사용할 수 있습니다:
 
 ```go
 package main
@@ -1406,11 +1406,11 @@ func main() {
 }
 ```
 
-As a final note, Go does have `panic` and `recover` functions. `panic` is like throwing an exception while `recover` is like `catch`; they are rarely used.
+마지막으로, Go는 `panic`과 `recover` 함수를 가지고 있습니다. `panic`은 예외를 던지는 것과 같습니다. `recover`는 `catch`를 사용하는 것과 동일합니다. 이 둘은 거의 사용되지 않습니다.
 
 ## Defer
 
-Even though Go has a garbage collector, some resources require that we explicitly release them. For example, we need to `Close()` files after we're done with them. This sort of code is always dangerous. For one thing, as we're writing a function, it's easy to forget to `Close` something that we declared 10 lines up. For another, a function might have multiple return points. Go's solution is the `defer` keyword:
+Go에는 가비지 수집기가 있지만 일부 리소스는 명시적으로 해제해야 합니다. 예를 들면, 파일 작업이 끝나고나면 `Close()`를 해야 합니다. 이런 류의 코드는 항상 위험합니다. 함수를 작성해 나가면서 10줄 위에서 선언한 부분에 대한 `Close`를 잊어버리기 쉽기 때문입니다. 그리고 함수가 여러 지점에서 반환될 수도 있기 때문입니다. Go의 해결책은 `defer` 키워드 입니다:
 
 ```go
 package main
@@ -1431,25 +1431,25 @@ func main() {
 }
 ```
 
-If you try to run the above code, you'll probably get an error (the file doesn't exist). The point is to show how `defer` works. Whatever you `defer` will be executed after the enclosing function (in this case `main()`) returns, even if it does so violently. This lets you release resources near where it’s initialized and takes care of multiple return points.
+위 코드를 실행해 보면 아마도 (파일이 존재하지 않아서) 오류가 발생할 것입니다. 요점은 `defer`가 어떻게 동작하는지 보여주는 것입니다. `defer`로 지연한 어떤 것이든 그것을 감싸고 있는 함수가 리턴된 후 (이 경우에는 `main()`) 실행될 것입니다. 이는 리소스를 초기화 하는 코드 가까운 곳에서 리소스를 릴리즈 할 수 있도록 해 주고 함수가 여러 반환 저점이 있어도 괜찮도록 해 줍니다.
 
 ## go fmt
 
-Most programs written in Go follow the same formatting rules, namely, a tab is used to indent and braces go on the same line as their statement.
+Go로 쓰여진 대부분의 프로그램들이 동일한 포맷팅 규칙을 따릅니다. 즉, 들여쓰기를 위해 탭을 사용하고 중괄호는 서술문(statement)과 동일한 줄에 있습니다.
 
-I know, you have your own style and you want to stick to it. That's what I did for a long time, but I'm glad I eventually gave in. A big reason for this is the `go fmt` command. It's easy to use and authoritative (so no one argues over meaningless preferences).
+누구나 자신의 스타일이있고 그것을 고수하기를 원한다는 것을 알고 있습니다. 저도 오랫동안 그렇게 해 왔지만 결국은 (Go 스타일을) 받아들인 것에 만족합니다. 이렇게 한 가장 큰 이유는 `go fmt` 명령 때문입니다. 이 명령은 사용하기 쉽고 신뢰할 수 있습니다(그래서 아무도 의미 없는 선호도를 주장하지 않습니다).
 
-When you're inside a project, you can apply the formatting rule to it and all sub-projects via:
+프로젝트 내부에 있을 때 다음과 같이 실행해 프로젝트와 하위 프로젝트에 포맷팅 규칙을 적용할 수 있습니다:
 
 ```
 go fmt ./...
 ```
 
-Give it a try. It does more than indent your code; it also aligns field declarations and alphabetically orders imports.
+시도해 보세요. 단지 코드를 들여쓰기 하는 것 이상 입니다. 필드의 선언을 정렬하고 임포트 문들을 알파벳 순서대로 정렬합니다.
 
-## Initialized If
+## If 초기화
 
-Go supports a slightly modified if-statement, one where a value can be initiated prior to the condition being evaluated:
+Go는 약간 수정된 if 문을 지원합니다. 조건문을 평가하기 전에 값을 초기화 할 수 있습니다:
 
 ```go
 if x := 10; count > x {
@@ -1457,7 +1457,7 @@ if x := 10; count > x {
 }
 ```
 
-That's a pretty silly example. More realistically, you might do something like:
+위 코드는 좀 바보 같은 예제 입니다. 보다 현실적인 예제는 다음과 같습니다:
 
 ```go
 if err := process(); err != nil {
@@ -1465,7 +1465,7 @@ if err := process(); err != nil {
 }
 ```
 
-Interestingly, while the values aren't available outside the if-statement, they are available inside any `else if` or `else`.
+흥미롭게도 if 문 외부에서는 그 값을 사용할 수 없지만 `else if` 또는 `else` 내부에서는 사용할 수 있습니다.
 
 ## Empty Interface and Conversions
 
