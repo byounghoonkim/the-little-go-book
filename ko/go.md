@@ -1564,13 +1564,13 @@ func process(adder Add) int {
 
 확실히, 우리는 Go가 제공하는 모든 부분을 살펴 보지는 않았습니다. 그러나 여러분은 마주치는 어떤 문제든 감당할 만큼은 되었을 것입니다.
 
-# Chapter 6 - Concurrency
+# 6장 - 동시성
 
-Go is often described as a concurrent-friendly language. The reason for this is that it provides a simple syntax over two powerful mechanisms: goroutines and channels.
+Go는 종종 동시성 친화적 언어로 평가됩니다. 그 이유는 고루틴과 채널이라는 두 가지 강력한 매커니즘을 통해 간단한 구문을 제공하기 때문입니다.
 
-## Goroutines
+## 고루틴
 
-A goroutine is similar to a thread, but it is scheduled by Go, not the OS. Code that runs in a goroutine can run concurrently with other code. Let's look at an example:
+고루틴은 쓰레드와 비슷하지만 OS가 아니라 Go에 의해 스케쥴 됩니다. 고루틴에서 실행되는 코드는 다른 코드와 동시에 실행할 수 있습니다. 예제를 살펴 봅시다:
 
 ```go
 package main
@@ -1583,7 +1583,7 @@ import (
 func main() {
   fmt.Println("start")
   go process()
-  time.Sleep(time.Millisecond * 10) // this is bad, don't do this!
+  time.Sleep(time.Millisecond * 10) // 이건 좋지 않습니다. 이렇게 하지 마세요.
   fmt.Println("done")
 }
 
@@ -1592,7 +1592,7 @@ func process() {
 }
 ```
 
-There are a few interesting things going on here, but the most important is how we start a goroutine. We simply use the `go` keyword followed by the function we want to execute. If we just want to run a bit of code, such as the above, we can use an anonymous function. Do note that anonymous functions aren't only used with goroutines, however.
+이 코드에는 몇 가지 흥미로운 것들이 있지만 가장 중요한 것은 고루틴을 시작하는 방법입니다. 단순히 실행하기를 원하는 함수 앞에 `go` 키워드를 사용했습니다. 위와 같이 약간의 코드만 실행하길 원한다면 익명 함수를 사용할 수 있습니다. 그러나 익명 함수가 고루틴에서만 사용되는 것은 아닙니다.
 
 ```go
 go func() {
@@ -1600,13 +1600,13 @@ go func() {
 }()
 ```
 
-Goroutines are easy to create and have little overhead. Multiple goroutines will end up running on the same underlying OS thread. This is often called an M:N threading model because we have M application threads (goroutines) running on N OS threads. The result is that a goroutine has a fraction of overhead (a few KB) than OS threads. On modern hardware, it's possible to have millions of goroutines.
+고루틴은 생성하기 쉽고 오버헤드가 적습니다. 여러 고루틴은 동일한 OS 쓰레드에서 실행될 것입니다. 이는 M개의 응용 쓰레드(고루틴)이 N개의 OS 쓰레드에서 실행되고 있기 때문에 M:N 쓰레드 모델이라고도 불립니다. 결과적으로 고루틴은 OS 쓰레드 보다 소량의 오버헤드(몇 KB)를 가집니다. 현대의 하드웨어는 수 백만개의 고루틴을 가질 수 있습니다.
 
-Furthermore, the complexity of mapping and scheduling is hidden. We just say *this code should run concurrently* and let Go worry about making it happen.
+또한 맵핑과 스케쥴의 복잡성은 숨겨져 있습니다. 단지 *이 코드는 동시에 실행되어야 한다*고 알려주고 Go가 그것을 해내도록 하면 됩니다.
 
-If we go back to our example, you'll notice that we had to `Sleep` for a few milliseconds. That's because the main process exits before the goroutine gets a chance to execute (the process doesn't wait until all goroutines are finished before exiting). To solve this, we need to coordinate our code.
+예제로 돌아와서, 몇 밀리 초 동안 `Sleep` 해야 한다는 것을 알 수 있습니다. 고루틴이 실행될 기회를 갖기 전에 메인 프로세스가 종료되기 때문입니다(프로세스가 종료되기 전에 모든 고루틴이 완료될 때까지 기다리지 않습니다). 이를 해결하려면 코드를 조정해야 합니다.
 
-## Synchronization
+## 동기화
 
 Creating goroutines is trivial, and they are so cheap that we can start many; however, concurrent code needs to be coordinated. To help with this problem, Go provides `channels`. Before we look at `channels`, I think it's important to understand a little bit about the basics of concurrent programming.
 
