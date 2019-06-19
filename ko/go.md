@@ -1502,9 +1502,9 @@ switch a.(type) {
 
 빈 인터페이스는 생각했던 것 보다 더 많이 사용하게 된다는 것을 알게 될 것입니다. 틀림없이, 그것은 코드를 깨끗하게 만들지는 않습니다. 값을 앞 뒤로 변환하는 것은 보기에도 좋지 않고 위험하기도 합니다. 그러나 때로는 정적 언어에서 유일한 선택지 입니다.
 
-## Strings and Byte Arrays
+## 문자열과 바이트 배열
 
-Strings and byte arrays are closely related. We can easily convert one to the other:
+문자열과 바이트 배열은 서로 밀접한 관련이 있습니다. 하나를 다른 것으로 쉽게 변환할 수도 있습니다.
 
 ```go
 stra := "the spice must flow"
@@ -1512,29 +1512,29 @@ byts := []byte(stra)
 strb := string(byts)
 ```
 
-In fact, this way of converting is common across various types as well. Some functions explicitly expect an `int32` or an `int64` or their unsigned counterparts. You might find yourself having to do things like:
+실제로, 이러한 변환 방법은 여러 타입에서 공통입니다. 어떤 함수는 `int32` 또는 `int64` 나 이에 해당하는 부호 없는 타입을 명시적으로 받습니다. 그러면 다음과 같이 해야 한다는 것을 알 수 있습니다:
 
 ```go
 int64(count)
 ```
 
-Still, when it comes to bytes and strings, it's probably something you'll end up doing often. Do note that when you use `[]byte(X)` or `string(X)`, you're creating a copy of the data. This is necessary because strings are immutable.
+여전히 바이트와 문자열에 대헤서는 이런 일들은 자주 하게 될 것입니다. `[]byte(X)` 또는 `string(X)`를 사용하면 데이터의 복사본을 생성하게 된다는 것에 유의하세요. 이는 문자열은 변경 가능하지 않기 때문에 필수 입니다.
 
-Strings are made of `runes` which are unicode code points. If you take the length of a string, you might not get what you expect. The following prints 3:
+문자열은 유니코드 코드 포인트인 `runes`로 만들어 집니다. 문자열의 길이를 구하면 기대한 바를 얻지 못 할 수도 있습니다. 다음 코드는 3을 출력합니다:
 
     fmt.Println(len("椒"))
 
-If you iterate over a string using `range`, you'll get runes, not bytes. Of course, when you turn a string into a `[]byte` you'll get the correct data.
+`range`를 사용해 문자열을 순회한다면 바이트가 아닌 runes를 얻게 됩니다. 물론 문자열을 `[]byte`로 변환하면 올바른 결과를 얻을 것입니다.
 
-## Function Type
+## 함수 타입
 
-Functions are first-class types:
+함수는 일급(first-class) 타입입니다:
 
 ```go
 type Add func(a int, b int) int
 ```
 
-which can then be used anywhere -- as a field type, as a parameter, as a return value.
+필드 타입, 파라미터, 반환 값 등 어디에나 사용할 수 있습니다.
 
 ```go
 package main
@@ -1556,13 +1556,13 @@ func process(adder Add) int {
 }
 ```
 
-Using functions like this can help decouple code from specific implementations much like we achieve with interfaces.
+이렇게 함수를 사용하면 인터페이스로 달성했던 것과 동일하게 특정 구현에서 코드를 분리할 수 있습니다.
 
-## Before You Continue
+## 계속 진행하기 전에
 
-We looked at various aspects of programming with Go. Most notably, we saw how error handling behaves and how to release resources such as connections and open files. Many people dislike Go's approach to error handling. It can feel like a step backwards. Sometimes, I agree. Yet, I also find that it results in code that's easier to follow. `defer` is an unusual but practical approach to resource management. In fact, it isn't tied to resource management only. You can use `defer` for any purpose, such as logging when a function exits.
+우리는 Go 프로그래밍의 여러 측면을 살펴 보았습니다. 특히, 오류를 어떻게 핸들링하고 접속이나 오픈된 파일 같은 리소스를 어떻게 해제 하는지 등을 살펴보았습니다. 많은 사람들이 오류 처리에 대한 Go의 접근법을 싫어합니다. 퇴보했다고 느낄 수 있습니다. 가끔은 동의합니다. 그러나, Go의 접근법이 쉽게 따라 갈 수 있는 코드를 만든다는 것 또한 발견했습니다. `defer`는 평범하지는 않지만 실용적인 자원 관리 접근법입니다. 사실은 자원 관리에만 국한되지 않습니다. `defer`는 함수 종료 시 로깅 등의 아무 목적에나 사용할  있습니다.
 
-Certainly, we haven't looked at all of the tidbits Go has to offer. But you should be feeling comfortable enough to tackle whatever you come across.
+확실히, 우리는 Go가 제공하는 모든 부분을 살펴 보지는 않았습니다. 그러나 여러분은 마주치는 어떤 문제든 감당할 만큼은 되었을 것입니다.
 
 # Chapter 6 - Concurrency
 
