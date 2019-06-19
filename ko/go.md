@@ -1608,9 +1608,9 @@ go func() {
 
 ## 동기화
 
-Creating goroutines is trivial, and they are so cheap that we can start many; however, concurrent code needs to be coordinated. To help with this problem, Go provides `channels`. Before we look at `channels`, I think it's important to understand a little bit about the basics of concurrent programming.
+고르틴을 만드는 것은 소소한 작업이고 많은 수를 시작할 수 있을 만큼 비용이 적게 듭니다. 그러나 동시 수행 되는 코드는 조정피 필요합니다. 이 문제를 해결하기 위해 Go는 `채널`을 제공합니다. `채널`을 보기 전에 동시성 프로그래밍에 대한 기본을 조금 이해하는 것이 중요하다고 생각합니다.
 
-Writing concurrent code requires that you pay specific attention to where and how you read and write values. In some ways, it's like programming without a garbage collector -- it requires that you think about your data from a new angle, always watchful for possible danger. Consider:
+동시 코드를 작성하려면 값을 읽고 쓰는 위치와 방법에 대해 주의를 기울여야 합니다. 어떤 면에서는 가비지 수집기가 없는 프로그래밍과 비슷합니다. 새로운 각도에서 데이터를 생각해 볼 필요가 있으며 항상 위험에 주의 해야 합니다. 다음을 보세요:
 
 ```go
 package main
@@ -1635,7 +1635,7 @@ func incr() {
 }
 ```
 
-What do you think the output will be?
+어떻게 출력 될 것 같습니까?
 
 If you think the output is `1, 2, ... 20` you're both right and wrong. It's true that if you run the above code, you'll sometimes get that output. However, the reality is that the behavior is undefined. Why? Because we potentially have multiple (two in this case) goroutines writing to the same variable, `counter`, at the same time. Or, just as bad, one goroutine would be reading `counter` while another writes to it.
 
