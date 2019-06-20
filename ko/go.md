@@ -1707,39 +1707,39 @@ func main() {
 
 ## 채널
 
-The challenge with concurrent programming stems from sharing data. If your goroutines share no data, you needn't worry about synchronizing them. That isn't an option for all systems, however. In fact, many systems are built with the exact opposite goal in mind: to share data across multiple requests. An in-memory cache or a database, are good examples of this. This is becoming an increasingly common reality.
+동시 프로그래밍의 도전은 공유 데이터에서 생겨났습니다. 고루틴이 데이터를 공유하지 않는다면 고루틴의 동기화를 걱정할 필요가 없습니다. 그러나 그것은 모든 시스템을 위한 선택지가 아닙니다. 사실, 많은 시스템들이 정확히 반대 되는 목표를 가지고 구축됩니다. 그 목표는 여러 요청에서의 데이터 공유입니다. 인메모리 캐시나 데이터베이스가 좋은 예입니다. 이는 점점 더 현실화 되고 있습니다.
 
-Channels help make concurrent programming saner by taking shared data out of the picture. A channel is a communication pipe between goroutines which is used to pass data. In other words, a goroutine that has data can pass it to another goroutine via a channel. The result is that, at any point in time, only one goroutine has access to the data.
+채널은 공유된 데이터 공유된 데이터를 그림 밖으로 가져가(???) 동시 프로그래밍을 더 안전하게 만듭니다. 채널은 고루틴들 사이에 데이터를 전달할 때 쓰이는 통신 파이프 입니다. 즉, 데이터를 가진 고루틴은 채널을 통해 다른 고루틴에게 가진 데이터를 보낼 수 있습니다. 결과적으로 어느 시점에든 단 하나의 고루틴만이 데이터에 접근할 수 있습니다.
 
-A channel, like everything else, has a type. This is the type of data that we'll be passing through our channel. For example, to create a channel which can be used to pass an integer around, we'd do:
+다른 것들과 마찬가지로 채널은 타입을 가집니다. 타입은 채널을 통해 보낼 데이터의 타입입니다. 예를 들면, 정수를 보내는데 사용할 채널을 생성하기 위해서는 다음과 같이 합니다:
 
 ```go
 c := make(chan int)
 ```
 
-The type of this channel is `chan int`. Therefore, to pass this channel to a function, our signature looks like:
+이 채널의 타입은 `chan int` 입니다. 따라서 이 채널을 함수에 전달하려면 다음과 같은 시그니처가 필요합니다:
 
 ```go
 func worker(c chan int) { ... }
 ```
 
-Channels support two operations: receiving and sending. We send to a channel by doing:
+채널은 수신과 송신 두가지 오퍼레이션을 지원합니다. 채널에 송신을 하려면 다음과 같이 합니다:
 
 ```
 CHANNEL <- DATA
 ```
 
-and receive from one by doing
+그리고 수신 하기 위해서는
 
 ```
 VAR := <-CHANNEL
 ```
 
-The arrow points in the direction that data flows. When sending, the data flows into the channel. When receiving, the data flows out of the channel.
+화살표는 데이터가 흐르는 방향을 가리 킵니다. 송신할 때, 데이터는 채널로 흐릅니다. 수신할 때, 데이터는 채널 밖으로 흐릅니다.
 
-The final thing to know before we look at our first example is that receiving and sending to and from a channel is blocking. That is, when we receive from a channel, execution of the goroutine won't continue until data is available. Similarly, when we send to a channel, execution won't continue until the data is received.
+첫 번째 예제를 보기 전에 알아야 할 마지막 사항은 채널에 송신하고 수신하는 것은 블로킹 된다는 것입니다. 채널에서 수신할 때 고루틴의 실행은 데이터가 사용 가능할 때까지 멈춰 있습니다. 비슷하게 채널에 데이터를 송신할 때도 데이터가 수신 될 때까지 실행이 멈춥니다.
 
-Consider a system with incoming data that we want to handle in separate goroutines. This is a common requirement. If we did our data-intensive processing on the goroutine which accepts the incoming data, we'd risk timing out clients. First, we'll write our worker. This could be a simple function, but I'll make it part of a structure since we haven't seen goroutines used like this before:
+들어오는 데이터를 별도의 고루틴에서 처리하는 시스템을 생각해 보세요. 이는 일반적인 요구 사항입니다. 들어 오는 데이터를 받아들이는 고루틴을 데이터 집약적으로 처리 했다면 클라이언트의 시간 초과 위험이 있습니다. 먼저, worker를 작성할 것입니다. 간단한 함수로 만들 수도 있지만, 이전에 이렇게 해 본적이 없기 때문에 구조체의 일부로 만들겠습니다:
 
 ```go
 type Worker struct {
@@ -1754,9 +1754,10 @@ func (w Worker) process(c chan int) {
 }
 ```
 
-Our worker is simple. It waits until data is available then "processes" it. Dutifully, it does this in a loop, forever waiting for more data to process.
+worker는 단순합니다. 사용 가능한 데이터를 기다리고 데이터를 "처리"합니다. 처리할 더 많은 데이터를 계속해서 기다리면서 루프 안에서 이 작업을 수행합니다.
 
-To use this, the first thing we'd do is start some workers:
+
+이것을 사용하기 위해서 해야할 첫 번째 일은 worker를 시작하는 것입니다:
 
 ```go
 c := make(chan int)
@@ -1766,7 +1767,7 @@ for i := 0; i < 5; i++ {
 }
 ```
 
-And then we can give them some work:
+그리고 몇 가지 작업을 줄 수 있습니다:
 
 ```go
 for {
@@ -1775,7 +1776,7 @@ for {
 }
 ```
 
-Here's the complete code to make it run:
+다음은 실행할 수 있는 전체 코드 입니다:
 
 ```go
 package main
@@ -1811,9 +1812,9 @@ func (w *Worker) process(c chan int) {
 }
 ```
 
-We don't know which worker is going to get what data. What we do know, what Go guarantees, is that the data we send to a channel will only be received by a single receiver.
+어떤 worker가 어떤 데이터를 얻을지는 알 수 없습니다. 채널로 송신한 데이터가 하나의 수신자에 의해서 한번 수신된다는 Go가 보증한다는 것을 알 수 있습니다.
 
-Notice that the only shared state is the channel, which we can safely receive from and send to concurrently. Channels provide all of the synchronization code we need and also ensure that, at any given time, only one goroutine has access to a specific piece of data.
+동시에 안전하게 보내고 받을 수 있는 채널은 단일 공유 상태입니다.(???) 채널은 필요로 하는 동기화 코드를 모두 제공하며 주어진 시간에 하나의 고루틴만 특정 데이터에 접근할 수 있도록 보장합니다.
 
 ### Buffered Channels
 
