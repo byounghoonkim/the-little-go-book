@@ -1699,13 +1699,13 @@ func main() {
 }
 ```
 
-There's more to concurrent programming than what we've seen so far. For one thing, there's another common mutex called a read-write mutex. This exposes two locking functions: one to lock for reading and one to lock for writing. This distinction allows multiple simultaneous readers while ensuring that writing is exclusive. In Go, `sync.RWMutex` is such a lock. In addition to the `Lock` and `Unlock` methods of a `sync.Mutex`, it also exposes `RLock` and `RUnlock` methods; where `R` stands for *Read*. While read-write mutexes are commonly used, they place an additional burden on developers: we must now pay attention to not only when we're accessing data, but also how.
+지금까지 본 것 보다 동시 프로그래밍에 관련 된 것은 더 많습니다. 한 가지를 들어보면, 읽기-쓰기 뮤텍스라고 불리는 또 다른 공통 뮤텍스가 있습니다. 이 뮤텍스는 읽기를 위한 lock과 쓰기를 위한 lock과 같이 두가지 락 함수를 제공합니다. 이런 구별은 쓰기는 배타적으로 보장을 하면서 동시에 여러 reader가 읽기 가능하게 허용합니다. Go에서는 `sync.RWMutex`가 그런 락입니다. `sync.Mutex`의 `Lock`과 `Unlock` 메소드에 추가적으로 `RLock`과 `RUnlock` 메소드를 제공합니다. `R`은 *Read*를 의미합니다. 읽기-쓰기 뮤텍스가 일반적으로 사용되지만 개발자에게는 추가적인 부담이 됩니다. 데이터를 접근할 때문만 아니라 어떻게 접근해야 하느지에도 주의를 기울여야 하기 때문입니다.
 
-Furthermore, part of concurrent programming isn't so much about serializing access across the narrowest possible piece of code; it's also about coordinating multiple goroutines. For example, sleeping for 10 milliseconds isn't a particularly elegant solution. What if a goroutine takes more than 10 milliseconds? What if it takes less and we're just wasting cycles? Also, what if instead of just waiting for goroutines to finish, we want to tell one *hey, I have new data for you to process!*?
+게다가, 좁은 영역의 코드를 직렬화 하는 것은 동시 프로그래밍에서 그렇게 큰 부분을 차지 하지 않습니다. 여러 고루틴을 조정하는 것도 큰 부분입니다. 예를 들면 10 밀리초를 대기하는 것은 그다지 우아한 해결책이 아닙니다. 고루틴 하나가 10밀리초 보다 더 길게 실행되면 어떨까요? 고루틴들이 빨리 끝나고 대기 시간이 낭비라면 어떨까요? 또, 고루틴들이 끝나는 것을 대기하는 대신 *고루틴에게 처리해야 할 데이터가 있다*고 알려주고 싶다면 어떨까요?
 
-These are all things that are doable without `channels`. Certainly for simpler cases, I believe you **should** use primitives such as `sync.Mutex` and `sync.RWMutex`, but as we'll see in the next section, `channels` aim at making concurrent programming cleaner and less error-prone.
+`채널` 없이 할수 있는 것들이 있습니다. 물론 단순한 경우에는 `sync.Mutex`와 `sync.RWMutext` 같은 프리미티브(primitives)를 사용해야*만* 한다고 생각합니만 다음 섹션에서 알 수 있듯이 `채녈`은 동시 코드를 좀더 깨끗하게 하고 에러 발생을 줄여 줍니다.
 
-## Channels
+## 채널
 
 The challenge with concurrent programming stems from sharing data. If your goroutines share no data, you needn't worry about synchronizing them. That isn't an option for all systems, however. In fact, many systems are built with the exact opposite goal in mind: to share data across multiple requests. An in-memory cache or a database, are good examples of this. This is becoming an increasingly common reality.
 
