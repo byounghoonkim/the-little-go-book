@@ -1880,11 +1880,11 @@ for {
 
 select는 무척 고급 기능이므로 간단한 예제로 동작을 보여주기가 어렵습니다. 그렇지만 다음 섹션이 이를 설명하는데 도움이 될 것입니다.
 
-### Timeout
+### 타임아웃(Timeout)
 
-We've looked at buffering messages as well as simply dropping them. Another popular option is to timeout. We're willing to block for some time, but not forever. This is also something easy to achieve in Go. Admittedly, the syntax might be hard to follow but it's such a neat and useful feature that I couldn't leave it out.
+단순히 메시지를 드랍 하는 것 뿐만 아니라 버퍼링 메시지도 살펴 보았습니다. 또다른 대중적인 옵션은 타입아웃 입니다. 영원히는 아니고 일정 시간 동안만 블럭하려고 합니다. 이 일 또한 Go에서 쉽게 할 수 있습니다. 분명히 문법을 따르기는 쉽지 않지만 무척 깔끔하고 유용한 버릴수 없는 기능입니다.
 
-To block for a maximum amount of time, we can use the `time.After` function. Let's look at it then try to peek beyond the magic. To use this, our sender becomes:
+최대 시간 동안 블럭하기 위해 `time.After` 함수를 사용할 수 있습니다. 좀 살펴 보고 마법의 이면을 조금 들여다 봅시다. 사용하기 위해서는 sender가 아래와 같아야 합니다:
 
 ```go
 for {
