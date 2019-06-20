@@ -1852,15 +1852,15 @@ for {
 
 ### Select
 
-Even with buffering, there comes a point where we need to start dropping messages. We can't use up an infinite amount of memory hoping a worker frees up. For this, we use Go's `select`.
+버퍼링을 사용하더라도 메시지를 드랍(drop)해야 하는 시점이 있습니다. worker가 메모리를 해제 하기를 희망하면서 무제한의 메모리를 사용할 수는 없기 때문입니다. 이를 위해서 Go의 `select`를 사용합니다.
 
-Syntactically, `select` looks a bit like a switch. With it, we can provide code for when the channel isn't available to send to. First, let's remove our channel's buffering so that we can clearly see how `select` works:
+문법적으로는 `select`는 switch 구문과 비슷해 보입니다. 그것으로 채널로 더 이상 송신을 할 수 없을 때를 위한 코드를 제공할 수 있습니다. 먼저, `select`가 어떻게 동작하는지 명확하게 볼 수 있도록 채널의 버퍼링을 제거합시다:
 
 ```go
 c := make(chan int)
 ```
 
-Next, we change our `for` loop:
+다음으로 `for` 루프를 수정합니다:
 
 ```go
 for {
@@ -1874,12 +1874,11 @@ for {
   time.Sleep(time.Millisecond * 50)
 }
 ```
+초당 20개의 메시지를 보내고 있지만 worker는 초당 10개만 처리합니다. 그래서 절반의 메시지가 드랍 됩니다.
 
-We're pushing out 20 messages per second, but our workers can only handle 10 per second; thus, half the messages get dropped.
+이것은 `select`로 할 수 있는 일의 시작일 뿐입니다. select 의 주요 목적은 여러 채널을 관리하는 것입니다. 여러 채널이 있을 때 `select`는 사용할 수 있는 채널이 첫 번째로 생길때 까지 블럭합니다. 사용할 수 있는 채널이 없으면 `default`이 있다면 그것을 수행합니다. 여러 채널이 동시에 사용 가능하다면 무작위로 하나가 선택됩니다.
 
-This is only the start of what we can accomplish with `select`. A main purpose of select is to manage multiple channels. Given multiple channels, `select` will block until the first one becomes available. If no channel is available, `default` is executed if one is provided. A channel is randomly picked when multiple are available.
-
-It's hard to come up with a simple example that demonstrates this behavior as it's a fairly advanced feature. The next section might help illustrate this though.
+select는 무척 고급 기능이므로 간단한 예제로 동작을 보여주기가 어렵습니다. 그렇지만 다음 섹션이 이를 설명하는데 도움이 될 것입니다.
 
 ### Timeout
 
