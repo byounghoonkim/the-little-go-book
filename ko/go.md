@@ -1639,9 +1639,9 @@ func incr() {
 
 `1, 2, ... 20` 라고 출력될 것이라 생각했다면 맞기도 하고 틀리기도 한 것입니다. 위 코드를 실행하면 가끔 그런 실행 결과를 얻는 경우가 종종 있습니다. 그러나 현실은 그 행동은 정의되어 있지 않다 입니다. 왜냐하면 동일한 변수 `counter`에 동시에 여러 (이 경우에는 둘) 고루틴이 쓰기 때문입니다. 또는, 한개의 고루틴이 값을 쓰는 동안 다른 고루틴이 값을 읽을 것입니다.
 
-그게 정말 위험할까요? 네, 확실히요. `counter++`는 간단한 한줄 코드 처럼 보이지만 실제로는 여러 개의 어셈블리 문으로 나누어 집니다. 정확한 특성은 코드가 실행되는 플랫폼에 종속적입니다. 이 예제를 실행하면 자주 숫자가 이상한 순서대로 출력되거나 또는 중복되거나 빠지는 경우를 보게 될 것입니다. 시스템이 크래시 되거나 임의의 데이터에 접근해 그것을 증가시키는 등의 잠재적으로 더 나쁠수도 있습니다. 
+그게 정말 위험할까요? 네, 확실히요. `counter++`는 간단한 한줄 코드 처럼 보이지만 실제로는 여러 개의 어셈블리 문으로 나누어 집니다. 정확한 특성은 코드가 실행되는 플랫폼에 종속적입니다. 이 예제를 실행하면 자주 숫자가 이상한 순서대로 출력되거나 또는 중복되거나 빠지는 경우를 보게 될 것입니다. 시스템이 크래시 되거나 임의의 데이터에 접근해 그것을 증가시키는 등의 잠재적으로 더 나쁠수도 있습니다.
 
-변수에 안전하게 할 수 있는 유일한 동시 작업은 변수로 부터 읽는 동작 뿐입니다. 원하는 만큼 리더(reader)를 만들 수 있지만 쓰기는 동기화 되어야 합니다. CPU 특수 명령에 의존하는 원자 연산을 사용하는 것을 포함해 동기화 하는 방법은 여러 가지가 있습니다. 그러나 가장 일반적인 접근법은 뮤텍스를 이용하는 것입니다: 
+변수에 안전하게 할 수 있는 유일한 동시 작업은 변수로 부터 읽는 동작 뿐입니다. 원하는 만큼 리더(reader)를 만들 수 있지만 쓰기는 동기화 되어야 합니다. CPU 특수 명령에 의존하는 원자 연산을 사용하는 것을 포함해 동기화 하는 방법은 여러 가지가 있습니다. 그러나 가장 일반적인 접근법은 뮤텍스를 이용하는 것입니다:
 
 ```go
 package main
@@ -1674,11 +1674,11 @@ func incr() {
 
 뮤텍스는 락(lock)의 내부에 있는 코드에 대한 접근을 직렬화 합니다. 단순히 `lock sync.Mutex`로 락을 정의하는 이유는 `sync.Mutex`의 기본값이 언락(unlock)이기 때문입니다.
 
-Seems simple enough? The example above is deceptive. There's a whole class of serious bugs that can arise when doing concurrent programming. First of all, it isn't always so obvious what code needs to be protected. While it might be tempting to use coarse locks (locks that cover a large amount of code), that undermines the very reason we're doing concurrent programming in the first place. We generally want fine locks; else, we end up with a ten-lane highway that suddenly turns into a one-lane road.
+충분히 간단해 보이나요? 위 예제는 현실적이지 않습니다. 동시 프로그래밍을 할때 발생하는 심각한 버그들이 있습니다. 먼저 어떤 코드를 보호해야 할지 항상 명확하지 않다는 것입니다. 넓은 락(많은 양의 코드를 대상으로 거는 락)을 사용하고 싶은 유혹이 있지만, 이는 애초에 동시 프로그래밍을 하는 큰 목적을 약화 시킵니다. 일반적으로 좁은 범위를 보호하는 섬세한 락이 좋습니다. 그렇지 않으면 결국 10차선 도로가 갑자기 1차선 도로가 되어 버립니다.
 
-The other problem has to do with deadlocks. With a single lock, this isn't a problem, but if you're using two or more locks around the same code, it's dangerously easy to have situations where goroutineA holds lockA but needs access to lockB, while goroutineB holds lockB but needs access to lockA.
+다른 문제는 데드락 입니다. 하나의 락을 사용하는 경우 문제가 되지 않습니다만 동일 코드에 두개 이상의 락을 사용하는 경우에는 고루틴A가 락A를 붙잡고 락B를 요청하는 상태에서 고르틴B는 락B를 붙잡고 락A를 요청하는 위험한 상황이 발생하기 쉽습니다.
 
-It actually *is* possible to deadlock with a single lock, if we forget to release it. This isn't as dangerous as a multi-lock deadlock (because those are *really* tough to spot), but just so you can see what happens, try running:
+락 해제를 잊어버리면 실제로 하나의 락에서도 데드락이 발생합니다. 이는 여러 개의 데드락 만큼은 위험하지 않습니다(여러 개에 의한 데드락은 *정말* 찾기 힘들기 때문입니다). 어떤 일이 일어나는지 다음을 실행해 보세요:
 
 ```go
 package main
