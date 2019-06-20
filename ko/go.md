@@ -1953,9 +1953,8 @@ for {
 
 여러분이 정적 타입 언어에 배경 지식이 있다면 우리가 살펴본 대부분의 것들은 아마도 기껏해야 재교육에 지나지 않을 것입니다. Go에서 포인터를 볼 수 있는 것과 슬라이스는 배열의 얇은 래퍼라는 것이 아마도 노련한 자바나 C# 개발자를 어리둥절하게 만들지는 않을 것입니다.
 
-여러분이 동적 언어를 사용하고 있다면, 조금 다른 느낌을 받았을겁니다. 그것은 배우기 적당*합니다*. 그중에서도 선언과 초기화에 관한 여러 문법이 다른 것 못지 않게 중요합니다. .........
-If you've mostly been making use of dynamic languages, you might feel a little different. It *is* a fair bit to learn. Not least of which is the various syntax around declaration and initialization. Despite being a fan of Go, I find that for all the progress towards simplicity, there's something less than simple about it. Still, it comes down to some basic rules (like you can only declare variable once and `:=` does declare the variable) and fundamental understanding (like `new(X)` or `&X{}` only allocate memory, but slices, maps and channels require more initialization and thus, `make`).
+여러분이 동적 언어를 사용하고 있다면, 조금 다른 느낌을 받았을겁니다. 그것은 배우기 적당*합니다*. 그중에서도 선언과 초기화에 관한 여러 문법이 다른 것 못지 않게 중요합니다. Go의 팬이지만 단순함을 향한 모든 진전에 대해 그것에는 간단하지 않은 무언가가 있다는 것을 발견했습니다. 그러나 결국 그것은 (변수를 한번만 선언할 수 있다와 `:=`는 변수를 선언한다와 같은) 몇 가지 규칙과 (`new(X)` 나 `&X{}`는 단지 메모리를 할당하지만 슬라이스, 맵 그리고 채널은 메모리 초기화가 필요하기 때문에 `make`를 사용한다 등과 같은) 근본적인 이해로 귀결되었습니다.
 
-Beyond this, Go gives us a simple but effective way to organize our code. Interfaces, return-based error handling, `defer` for resource management and a simple way to achieve composition.
+이 외에도 Go는 코드를 쳬계화 할 수 있는 간단하지만 효과적인 방법을 제공합니다. 인터페이스, 반환-기반 오류 처리, 리소스 관리를 위한 `defer` 및 구성을 만들기 간단한 방법등.
 
-Last but not least is the built-in support for concurrency. There's little to say about goroutines other than they’re effective and simple (simple to use anyway). It's a good abstraction. Channels are more complicated. I always think it's important to understand basics before using high-level wrappers. I *do* think learning about concurrent programming without channels is useful. Still, channels are implemented in a way that, to me, doesn't feel quite like a simple abstraction. They are almost their own fundamental building block. I say this because they change how you write and think about concurrent programming. Given how hard concurrent programming can be, that is definitely a good thing.
+마지막으로 동시성을 위한 내장 지원도 중요합니다. 고루틴은 효과적이고 단순하다(한편으로는 사용하고도 쉽다)라는 것은 말할 것도 없습니다. 채널은 더 복잡합니다. 항상 높은 수준의 래퍼를 사용하기 전에 기본을 이애하는 것이 중요하다고 생각합니다. 채널 없이 동시 프로그램에 대해 배우는 것이 유용하다고 생각*합니다*. 그래도 저에게 채널은 단순한 추상화 처럼 느껴지지 않는 방식으로 구현 됩니다. 채널은 거의 근본적인 기본 요소(fundamental building block) 입니다. 채널은 동시 프로그램에 대해 생각하고 작성하는 여러분의 방식을 바꿉니다. 동시 프로그래밍이 얼마나 어려운지 생각해 보면, 채널은 명백히 좋은 물건입니다.
