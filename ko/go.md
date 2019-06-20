@@ -1947,12 +1947,13 @@ for {
 
 말하자면, 저는 여전히 `sync`와 `sync/atomic` 패키지 내에 있는 여러가지 프리미티브 동기화 방법을 광범위하게 사용합니다. 두 가지 모두 익숙해 지는게 중요하다고 생각합니다. 처음에는 채널에 집중하는 것이 좋지만, 짧은 구간의 락이 필요한 단순한 예제를 볼 때는 뮤텍스나 읽기-쓰기 뮤텍스를 고려해 보는게 좋습니다.
 
-# Conclusion
+# 결론
 
-I recently heard Go described as a *boring* language. Boring because it's easy to learn, easy to write and, most importantly, easy to read. Perhaps, I did this reality a disservice. We *did* spend three chapters talking about types and how to declare variables after all.
+최근에 Go가 지우한 언어로 묘사되는 말을 들었습니다. 배우기 쉽고, 쓰기 쉽고, 가장 중요한 읽기도 쉽기 때문에 지루합니다. 아마도 이 사실에 제가 해를 끼친것 같습니다. 변수를 선언하는 방법과 타입에 대해서 이야기 하는데 결국 3개의 장을 사용*했습니다*.
 
-If you have a background in a statically typed language, much of what we saw was probably, at best, a refresher. That Go makes pointers visible and that slices are thin wrappers around arrays probably isn't overwhelming to seasoned Java or C# developers.
+여러분이 정적 타입 언어에 배경 지식이 있다면 우리가 살펴본 대부분의 것들은 아마도 기껏해야 재교육에 지나지 않을 것입니다. Go에서 포인터를 볼 수 있는 것과 슬라이스는 배열의 얇은 래퍼라는 것이 아마도 노련한 자바나 C# 개발자를 어리둥절하게 만들지는 않을 것입니다.
 
+여러분이 동적 언어를 사용하고 있다면, 조금 다른 느낌을 받았을겁니다. 그것은 배우기 적당*합니다*. 그중에서도 선언과 초기화에 관한 여러 문법이 다른 것 못지 않게 중요합니다. .........
 If you've mostly been making use of dynamic languages, you might feel a little different. It *is* a fair bit to learn. Not least of which is the various syntax around declaration and initialization. Despite being a fan of Go, I find that for all the progress towards simplicity, there's something less than simple about it. Still, it comes down to some basic rules (like you can only declare variable once and `:=` does declare the variable) and fundamental understanding (like `new(X)` or `&X{}` only allocate memory, but slices, maps and channels require more initialization and thus, `make`).
 
 Beyond this, Go gives us a simple but effective way to organize our code. Interfaces, return-based error handling, `defer` for resource management and a simple way to achieve composition.
