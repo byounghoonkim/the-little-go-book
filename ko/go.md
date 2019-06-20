@@ -1896,8 +1896,7 @@ for {
   time.Sleep(time.Millisecond * 50)
 }
 ```
-
-`time.After` returns a channel, so we can `select` from it. The channel is written to after the specified time expires. That's it. There's nothing more magical than that. If you're curious, here's what an implementation of `after` could look like:
+`time.After`는 채널을 반환합니다. 그래서 그 채널을 `select`할 수 있습니다. 그 채널은 지정된 시간이 지나면 쓰여집니다. 그뿐입니다. 더 마술 같은 일은 없습니다. `after`의 구현은 다음과 같을 것입니다.
 
 ```go
 func after(d time.Duration) chan bool {
@@ -1910,23 +1909,23 @@ func after(d time.Duration) chan bool {
 }
 ```
 
-Back to our `select`, there are a couple of things to play with. First, what happens if you add the `default` case back? Can you guess? Try it. If you aren't sure what's going on, remember that `default` fires immediately if no channel is available.
+`select`로 돌아와 좀더 다뤄 볼 몇 가지 사항이 있습니다. 먼저 `default`를 다시 추가하면 어떻게 될까요? 추측하실 수 있나요? 시도해 보세요. 어떻게 될지 확신할 수 있다면 `default`는 아무 채널도 사용 할 수 없을 때 실행된다는 것을 기억해 보세요.
 
-Also, `time.After` is a channel of type `chan time.Time`. In the above example, we simply discard the value that was sent to the channel. If you want though, you can receive it:
+그리고 `time.After`은 `chan time.Time` 타입의 채널입니다. 위의 예제에서 단순히 채널로 보내는 값만 취소 했습니다. 원한다면 수신도 가능합니다:
 
 ```go
 case t := <-time.After(time.Millisecond * 100):
   fmt.Println("timed out at", t)
 ```
 
-Pay close attention to our `select`. Notice that we're sending to `c` but receiving from `time.After`. `select` works the same regardless of whether we're receiving from, sending to, or any combination of channels:
+`select`에 세심히 주의를 기울려 보세요. `c`에는 송신을 하지만 `time.After`로 부터는 수신을 한다는 것에 주목해 주세요. `select`는 송신을 하든 수신을 하든 어떤 채널 조합이든 관계 없이 동일하게 동작합니다:
 
-* The first available channel is chosen.
-* If multiple channels are available, one is randomly picked.
-* If no channel is available, the default case is executed.
-* If there's no default, select blocks.
+* 첫 번째 사용가능한 채널을 선택합니다.
+* 여러 채널이 사용가능한 경우 무작위로 선택합니다.
+* 채널이 사용능하지 않을 경우 default case가 실행됩니다.
+* default가 없는 경우 select 는 블럭 됩니다.
 
-Finally, it's common to see a `select` inside a `for`. Consider:
+마지막으로, `select`는 `for` 안에서 볼 수 있는게 일반적입니다. 다음을 보세요:
 
 ```go
 for {
@@ -1940,13 +1939,13 @@ for {
 }
 ```
 
-## Before You Continue
+## 계속 진행하기 전에
 
-If you're new to the world of concurrent programming, it might all seem rather overwhelming. It categorically demands considerably more attention and care. Go aims to make it easier.
+동시 프로그래밍의 세계가 낯설다면, 모든 게 어리둥절해 보일 수도 있습니다. 동시 프로그래밍은 분명히 더 많은 주의와 관심를 필요로 합니다. Go는 동시 프로그래밍을 더 쉽게 만드는 것을 목표로 합니다.
 
-Goroutines effectively abstract what's needed to run concurrent code. Channels help eliminate some serious bugs that can happen when data is shared by eliminating the sharing of data. This doesn't just eliminate bugs, but it changes how one approaches concurrent programming. You start to think about concurrency with respect to message passing, rather than dangerous areas of code.
+고루틴은 동시성 코드를 실행하는데 필요한 것을 효과적으로 추상화 합니다. 채널은 공유하는 데이터를 제거함으로써 데이터를 공유할 때 발생하는 심각한 버그를 제거하는데 도움이 됩니다. 이는 단지 버그를 제거하는 것일 뿐 아니라 동시 프로그램에 접근하는 방법을 변경합니다. 여러분은 위험한 코드 영역 보다는 메시지를 전달하는 측면에서 동시성에 대해 생각하기 시작합니다.
 
-Having said that, I still make extensive use of the various synchronization primitives found in the `sync` and `sync/atomic` packages. I think it's important to be comfortable with both. I encourage you to first focus on channels, but when you see a simple example that needs a short-lived lock, consider using a mutex or read-write mutex.
+말하자면, 저는 여전히 `sync`와 `sync/atomic` 패키지 내에 있는 여러가지 프리미티브 동기화 방법을 광범위하게 사용합니다. 두 가지 모두 익숙해 지는게 중요하다고 생각합니다. 처음에는 채널에 집중하는 것이 좋지만, 짧은 구간의 락이 필요한 단순한 예제를 볼 때는 뮤텍스나 읽기-쓰기 뮤텍스를 고려해 보는게 좋습니다.
 
 # Conclusion
 
