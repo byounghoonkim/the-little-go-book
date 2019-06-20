@@ -1816,9 +1816,9 @@ func (w *Worker) process(c chan int) {
 
 동시에 안전하게 보내고 받을 수 있는 채널은 단일 공유 상태입니다.(???) 채널은 필요로 하는 동기화 코드를 모두 제공하며 주어진 시간에 하나의 고루틴만 특정 데이터에 접근할 수 있도록 보장합니다.
 
-### Buffered Channels
+### 버퍼드 채널(Buffered Channels)
 
-Given the above code, what happens if we have more data coming in than we can handle? You can simulate this by changing the worker to sleep after it has received data:
+위 코드에서 처리할 수 있는 것 보다 더 많은 데이터가 들어 오면 어떻게 될까요? 데이터를 수신 받은 worker를 대기 상태로 변경하여 이 상황을 실험해 볼 수 있습니다:
 
 ```go
 for {
@@ -1828,17 +1828,17 @@ for {
 }
 ```
 
-What's happening is that our main code, the one that accepts the user's incoming data (which we just simulated with a random number generator) is blocking as it sends to the channel because no receiver is available.
+가용한 수신자가 없기 때문에 (난수 생성기로 시뮬레이트한) 사용자 유입 데이터를 받아 주는 메인 코드가 멈춰 있게 됩니다.
 
-In cases where you need high guarantees that the data is being processed, you probably will want to start blocking the client. In other cases, you might be willing to loosen those guarantees. There are a few popular strategies to do this. The first is to buffer the data. If no worker is available, we want to temporarily store the data in some sort of queue. Channels have this buffering capability built-in. When we created our channel with `make`, we can give our channel a length:
+데이터 처리를 높은 수준으로 보장해야 하는 경우 블러킹된 클라이언트가 시작되길 원할 것입니다. 다른 경우에는 이런 보증을 하지 않을 수도 있습니다. 이를 위해서는 몇 가지 전략이 있습니다. 첫 번째는 데이터를 버퍼링하는 것입니다. worker가 가용하지 않을 때 데이터를 일종의 큐에 임시로 저장하는 것입니다. 채널은 이런 버퍼링 용량 기능이 내장되어 있습니다. `make`로 채널을 생성할 때 채널의 길이를 줄 수 있습니다:
 
 ```go
 c := make(chan int, 100)
 ```
 
-You can make this change, but you'll notice that the processing is still choppy. Buffered channels don't add more capacity; they merely provide a queue for pending work and a good way to deal with a sudden spike. In our example, we're continuously pushing more data than our workers can handle.
+이를 변경할 수도 있지만, 처리가 여전히 고르지 않다는 것을 알 수 있습니다. 버퍼드 채널은 더 많은 용량을 추가하지 않습니다. 이느 대기 작업을 위한 큐와 갑작스런 작업 몰림을 처리하기 좋은 방법을 제공합니다. 예제에서는 worker가 처리 가능한 것보다 더 많은 데이터를 지속적으로 보냅니다.
 
-Nevertheless, we can get a sense what the buffered channel is, in fact, buffering by looking at the channel's `len`:
+그럼에도 불구하고 채널의 `len`을 확인해서 버퍼드 채널이 사실은 버퍼링 한다는 것을 알 수 있습니다.
 
 ```go
 for {
@@ -1848,7 +1848,7 @@ for {
 }
 ```
 
-You can see that it grows and grows until it fills up, at which point sending to our channel start to block again.
+채널이 가득 차기 전까지 값이 계속 증가 하는 것을 볼 수 있습니다. 가득 차면 채널로의 송신이 다시 블로킹되기 시작합니다.
 
 ### Select
 
