@@ -2,7 +2,7 @@
 
 ## 라이센스
 
-리틀 고(The Little Go Book)은 Attribution-NonCommercial-ShareAlike 4.0 International license를 따릅니다. 이 책에 값을 지불하지 마세요.
+리틀 고(The Little Go Book)는 Attribution-NonCommercial-ShareAlike 4.0 International license를 따릅니다. 이 책에 값을 지불하지 마세요.
 
 이 책은 복제, 배포, 게시를 자유롭게 할 수 있습니다. 다만, 이 책은 Karl Seguin에게 소유권이 있다는 사실을 당부 드립니다. 상업적 용도로 사용하지 마세요.
 
