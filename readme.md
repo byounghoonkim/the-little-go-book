@@ -1,5 +1,5 @@
 ## 이 책에 대해서 ##
-[The Little Go Book](http://openmymind.net/The-Little-Go-Book/)은 Go 언어를 소개하는 무료 책입니다.
+[리틀 고(The Little Go Book)](http://openmymind.net/The-Little-Go-Book/)는 Go 언어를 소개하는 무료 책입니다.
 
 이 책의 저자는 [Karl Seguin](http://openmymind.net)입니다. 다음과 같은 책도 썼죠:
 
