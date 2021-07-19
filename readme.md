@@ -22,7 +22,7 @@
 * [러시아어](https://github.com/sefus/the-little-go-book/blob/master/ru/go.md) 역자 Roman Dolgopolov
 * [독일어](https://github.com/Aaronmacaron/the-little-go-book-de/blob/master/de/go.md) (15% 완료) 역자 Aaron
 * [암하라어](https://github.com/codeethiopia/the-little-go-book-amharic) 역자 codeethiopia
-* [한국어](https://github.com/shoebillk/the-little-go-book-ko) 역자 김병훈
+* [한국어](https://github.com/byounghoonkim/the-little-go-book/blob/master/ko/go.md) 역자 김병훈
 
 ## 포맷 ##
 이 책은 [마크다운](http://daringfireball.net/projects/markdown/) 형식으로 쓰고 [Pandoc](http://johnmacfarlane.net/pandoc/)을 이용해 PDF 형식으로 변환합니다.
